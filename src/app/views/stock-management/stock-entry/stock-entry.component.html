@@ -1,0 +1,76 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" matTooltip="Fermer le dialogue">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="stockEntryForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="entryDatePicker" name="date"
+                           formControlName="date" required>
+                    <mat-datepicker-toggle matSuffix [for]="entryDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #entryDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Produit</mat-label>
+                    <mat-select formControlName="product"
+                                (selectionChange)="findProductSelected($event.value)"
+                                required>
+                        <mat-option *ngFor="let product of products"
+                                    [value]="product.id">{{product?.designation}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Quantité</mat-label>
+                    <input type="text"
+                           formControlName="quantityEntry"
+                           mask="separator"
+                           matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Observation</mat-label>
+                    <input name="observation" formControlName="observation" matInput required>
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+
+        <button (click)="matDialogRef.close()"
+                mat-button
+                class="mr-8"
+                matTooltip="Annuler">
+            Annuler
+        </button>
+
+        <button *ngIf="action !== 'edit'"
+                mat-button
+                (click)="saveOrUpdate()"
+                class="save-button"
+                [disabled]="stockEntryForm.invalid">
+            Enregistrer
+        </button>
+
+    </div>
+</div>

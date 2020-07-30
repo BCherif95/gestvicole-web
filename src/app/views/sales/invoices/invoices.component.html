@@ -1,0 +1,168 @@
+<div id="invoices" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="column" fxLayoutAlign="center center"
+             fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    receipt
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Factures
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Rechercher une facture">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            <!-- ADD BUTTON -->
+            <!--<button mat-fab class="accent" id="add-contact-button"
+                    matTooltip="Ajouter une facture"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                <mat-icon>receipt</mat-icon>
+            </button>-->
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table class="invoices-table"
+                       #table [dataSource]="dataSource"
+                       matSort
+                       [@animateStagger]="{value:'50'}"
+                       fusePerfectScrollbar>
+
+                <!-- Number Column -->
+                <ng-container matColumnDef="number">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>N°</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoice.number}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Customer Column -->
+                <ng-container matColumnDef="customer">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Client</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoice.customer.name}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Order Column -->
+                <ng-container matColumnDef="order">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Commande</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoice.order.number}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- invoiceDate Column -->
+                <ng-container matColumnDef="invoiceDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la facture</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoice.invoiceDate |date: 'dd/MM/yyyy'}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- amount Column -->
+                <ng-container matColumnDef="amount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoice.amount| number:'':'fr-FR'}} F</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- methodOfPayment Column -->
+                <ng-container matColumnDef="methodOfPayment">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Mode de Paiement</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{methodofpayment[invoice.methodOfPayment]}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- state Column -->
+                <ng-container matColumnDef="state">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Etat</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoicestate[invoice.state]}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Buttons Column -->
+                <ng-container matColumnDef="buttons">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
+                                <mat-icon class="secondary-text">more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <!--<button
+                                    *ngIf="invoice.state === 'OPEN' && invoice.amountPaid === 0"
+                                    mat-menu-item
+                                    matTooltip="modifier">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Modifier</span>
+                                </button>-->
+                                <button
+                                    *ngIf="invoice.state === 'OPEN' && !invoice.paid"
+                                    mat-menu-item
+                                    (click)="issuePayment(invoice)"
+                                    matTooltip="paiement">
+                                    <mat-icon>assignment</mat-icon>
+                                    <span>Émettre un paiement</span>
+                                </button>
+                                <button mat-menu-item
+                                        [routerLink]="'/views/sales/invoices/'+invoice.id">
+                                    <mat-icon>print</mat-icon>
+                                    <span>Imprimer</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let invoice; columns: displayedColumns;"
+                         class="invoice"
+                         matRipple>
+                </mat-row>
+
+            </mat-table>
+
+            <mat-paginator #paginator
+                           [length]="dataSource.filteredData.length"
+                           [pageIndex]="0"
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

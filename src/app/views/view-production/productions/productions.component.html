@@ -1,0 +1,167 @@
+<div id="productions" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="column" fxLayoutAlign="center center"
+             fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Productions
+                </span>&nbsp;&nbsp;
+                <button class="add-product-button fuse-white mt-24 mt-md-0"
+                        mat-raised-button (click)="exporter.exportTable('xlsx',{fileName:'Données de productions'})">Exporter en excel
+                </button>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Rechercher une production">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            <button mat-raised-button
+                    [routerLink]="'/views/view-production/productions/new'"
+                    class="add-product-button fuse-white mt-24 mt-md-0">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    add
+                </mat-icon>
+                <span>Nouvelle Production</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table matTableExporter class="productions-table"
+                       [dataSource]="dataSource"
+                       matSort
+                       [@animateStagger]="{value:'50'}"
+                       #exporter="matTableExporter"
+                       fusePerfectScrollbar>
+
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date Production</mat-header-cell>
+                    <mat-cell *matCellDef="let production">
+                        <p class="text-truncate">{{production.date | date: 'dd/MM/yyyy'}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Batiment Column -->
+                <ng-container matColumnDef="building">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Batiment</mat-header-cell>
+                    <mat-cell *matCellDef="let production">
+                        <p class="text-truncate">{{production.building.name}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Mortalité Column -->
+                <ng-container matColumnDef="mortality">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Mortalité</mat-header-cell>
+                    <mat-cell *matCellDef="let production">
+                        <p class="text-truncate">{{production.mortality}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!--  Effective Column -->
+                <ng-container matColumnDef="overallProduction">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Production</mat-header-cell>
+                    <mat-cell *matCellDef="let production" fxHide fxShow.gt-sm>
+                        <span>
+                            {{production.overallProduction}}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!--  Effective Column -->
+                <ng-container matColumnDef="generalEffective">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Effectif Général</mat-header-cell>
+                    <mat-cell *matCellDef="let production" fxHide fxShow.gt-sm>
+                        <span>
+                            {{production.generalEffective}}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- commercialProductions Column -->
+                <ng-container matColumnDef="commercialProductions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Prod Com</mat-header-cell>
+                    <mat-cell *matCellDef="let production" fxHide fxShow.gt-sm>
+                        <span>
+                            {{production.commercialProductions}}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- prodDoubleYellow Column -->
+                <ng-container matColumnDef="prodDoubleYellow">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Prod Double Jaune</mat-header-cell>
+                    <mat-cell *matCellDef="let production" fxHide fxShow.gt-sm>
+                        <span>
+                            {{production.prodDoubleYellow}}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- alveolusBroken Column -->
+                <ng-container matColumnDef="alveolusBroken">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Alvéole Cassés</mat-header-cell>
+                    <mat-cell *matCellDef="let production" fxHide fxShow.gt-sm>
+                        <span>
+                            {{production.alveolusBroken}}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- prodSmallAlveolus Column -->
+                <ng-container matColumnDef="prodSmallAlveolus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Prod Petit Alvéole</mat-header-cell>
+                    <mat-cell *matCellDef="let production" fxHide fxShow.gt-sm>
+                        <span>
+                            {{production.prodSmallAlveolus}}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let production; columns: displayedColumns;"
+                         class="production"
+                         [routerLink]="'/views/view-production/productions/'+production.id+'/'+production.name"
+                         matRipple>
+                </mat-row>
+
+            </mat-table>
+
+            <mat-paginator #paginator
+                           [length]="dataSource.filteredData.length"
+                           [pageIndex]="0"
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,256 @@
+<div class="no-print" fxLayout="row" fxLayoutAlign="start start">
+
+    <button [routerLink]="'/views/sales/invoices'" class="mr-16" mat-icon-button>
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <div [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" fxLayout="column"
+         fxLayoutAlign="start start">
+    </div>
+</div>
+
+<div class="compact page-layout blank" fxLayout="row" id="invoice">
+    <div class="invoice-container">
+
+        <div (click)="onPrint()" class="card">
+            <table>
+                <thead>
+                <tr>
+                    <td>
+                        <div class="header-space">&nbsp;</div>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+
+                        <div id="content" class="content">
+
+                            <div>
+                                <img src="assets/images/logos/logo.png" width="252" height="90" alt="">
+                            </div>
+                            <div>
+                                <table class="invoice-info-table" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <p class="invoice-margin-space-4">
+                                                <strong>
+                                                    <span>Client : </span>
+                                                </strong>
+                                                <span>{{invoice.customer?.name}}</span>
+                                            </p>
+                                            <p class="invoice-margin-space-4">
+                                                <strong>
+                                                    <span>N° FACTURE : </span>
+                                                </strong>
+                                                <span>{{invoice.number}}</span>
+                                            </p>
+                                            <p class="invoice-margin-space-4">
+                                                <strong>
+                                                    <span>Date : </span>
+                                                </strong>
+                                                <span>{{invoice.invoiceDate | date:'dd/MM/yyyy'}}</span>
+                                            </p>
+                                            <p class="invoice-margin-space-4">
+                                                <strong>
+                                                    <span>Montant de la facture : </span>
+                                                </strong>
+                                                <strong>
+                                                    <span>{{invoice.amount | number:'':'fr-FR'}}</span>
+                                                </strong>
+                                                <strong>
+                                                    <span> F CFA TTC</span>
+                                                </strong>
+                                            </p>
+                                            <p style="margin-top:0pt; margin-bottom:0pt; font-size:3pt;">
+                                                <strong><span>&nbsp;</span></strong></p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <p class="invoice-margin-space-2"><span>&nbsp;</span></p>
+                            <p style="margin-top:0pt; margin-bottom:8pt; line-height:108%; font-size:21pt;">&nbsp;</p>
+                            <!--<p style="margin-top:0pt; margin-bottom:8pt; line-height:108%; font-size:21pt;"><strong><span
+                               >&nbsp;</span></strong></p>-->
+                            <p class="invoice-margin-space-3">
+                                <br/>
+                            </p>
+                            <br/><br/>
+
+                            <p class="invoice-margin-space-3">
+                                <strong><u><span>FACTURE Nº {{invoice.number}}</span></u></strong></p>
+                            <table class="invoice-table" cellspacing="0" cellpadding="0">
+                                <tr class="table-header">
+                                    <td class="table-row-data" style="width:8%;">
+                                        <p class="table-header-title">
+                                            <strong><span>Quantité</span></strong>
+                                        </p>
+                                    </td>
+                                    <td class="table-row-data" style="width:16%;">
+                                        <p class="table-header-title">
+                                            <strong><span>Prix U.</span></strong>
+                                        </p>
+                                    </td>
+                                    <td class="table-row-data" style="width:16%;">
+                                        <p class="table-header-title">
+                                            <strong><span>Montant</span></strong>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr style="height:34pt">
+                                    <td style="width:8%;">
+                                        <p class="table-row-data-text-2">
+                                            <span>{{invoice.quantity | number:'':'fr-FR'}}</span>
+                                        </p>
+                                    </td>
+                                    <td style="width:16%;">
+                                        <p class="table-row-data-text-2">
+                                            <span>{{invoice.unitPrice | number:'':'fr-FR'}}</span>
+                                        </p>
+                                    </td>
+                                    <td style="width:16%;">
+                                        <p class="table-row-data-text-2">
+                                            <span>{{invoice.amount | number:'':'fr-FR'}}</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p class="invoice-margin-space-4"><strong><span>&nbsp;</span></strong></p>
+
+                            <table class="invoice-total-table" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="invoice-margin-space-4">
+                                            <strong>
+                                                <span>TOTAL TTC</span>
+                                                <span>{{invoice.amount | number:'':'fr-FR'}} F CFA</span>
+                                            </strong>
+                                        </p>
+                                        <br>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--<p *ngIf="devis.showReglementMode"
+                               style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
+                                <strong>
+                                    <span>Mode de Règlement :</span>
+                                </strong>
+                            </p>
+                            <p *ngIf="devis.showReglementMode" class="invoice-margin-space-1">
+                                <strong>
+                        <span>
+                          <li style="margin-left: 13pt; margin-bottom: 8pt; margin-top: 8pt">
+                              40% à la commande : {{dsnUtils.getAmountByPercentage(devis.total, 40).toFixed(0) | number:'':'fr-FR'}}
+                              F CFA
+                          </li>
+                          <li style="margin-left: 13pt; margin-bottom: 8pt">
+                              60% à la livraison : {{dsnUtils.getAmountByPercentage(devis.total, 60).toFixed(0) | number:'':'fr-FR'}}
+                              F CFA
+                          </li>
+                        </span>
+                                </strong>
+                            </p>
+                            <p *ngIf="devis.showReglementMode" class="invoice-margin-space-1">
+                                <strong>
+                                    <span style="margin-left: 13pt;">Par virement ou chèque au nom de la société DSN MALI</span>
+                                </strong>
+                            </p>-->
+                            <p class="invoice-margin-space-1">
+                                <br/>
+                                <br/><span>&nbsp;</span>
+                            </p>
+                            <p class="invoice-margin-space-1">
+                                <br/>
+                            </p><br/><br/><br/>
+                            <p style="font-size: 11pt !important;" class="invoice-margin-space-2"><span>
+                    Arrêtée la présente facture à la somme de</span><strong><span>
+                    &nbsp;</span></strong><strong><span>: {{projectUtils.titleCaseWord(invoice.amountInLetter)}}
+                                francs CFA</span></strong>
+                            </p>
+                            <p class="invoice-margin-space-2">
+                                <span>&nbsp;</span>
+                            </p>
+                            <p class="invoice-margin-space-2"><span>
+                    &nbsp;</span></p><br/><br/>
+<!--
+                            <div>
+                                <p class="invoice-margin-space-4">
+                                    <strong>
+                                        <span>BON POUR ACCORD</span>
+                                    </strong>
+                                </p>
+                            </div>
+                            <div>
+                                <p class="invoice-margin-space-4">
+                                    <strong>
+                                        <span>LE FOURNISSEUR</span>
+                                    </strong>
+                                </p>
+                            </div>-->
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td>
+                        <div class="footer-space">&nbsp;</div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <!-- footer -->
+            <div class="footer" style="clear:both;">
+                <img src="assets/img/dsn-invoice-ligne.png" height="3" alt=""
+                     style="margin-top:8pt; width: 20px;"/>
+                <br/>
+                <hr style="border: none; border-bottom: 1px solid #422874">
+                <div style="margin-left: 34px; float: left" align="center">
+                    <p style="margin-top:8pt; margin-bottom:8pt; text-align:center; line-height:108%; font-size:8pt">
+                        <strong><em><span> TRANS ROUTE SA </span></em></strong>
+                    </p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt">
+                        <em><span
+                        >HAMDALLAYE ACI 2000 en face du palais des sports</span></em>
+                    </p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt">
+                        <em>
+                            <span style="font-family:Arial; font-size:8pt;">
+                                BP 2899 -- Tél : 20 29 02 17/65 96 34 34 -- Email: </span>
+                            <a href="javascript:void(0);" style="text-decoration:none">
+                                <u><span
+                                    style="font-family:Arial; font-size:8pt; color:#bc5fbc">contact@gestvicole.com</span></u>
+                            </a>
+                        </em>
+                    </p>
+                    <p style="margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:8pt;">
+                        <em><span style="font-family:Arial;">
+                            N° Compte ORABANK : 051639200201 –NIF 086138237C- RC : MA.BKO.2015 B.7466
+                        </span></em>
+                    </p>
+                    <p style="margin-top:0pt; margin-bottom:8pt; line-height:108%; font-size:8pt">
+                        <span style="width:225.65pt; display:inline-block">&#xa0;</span><span
+                        style="width:225.65pt; display:inline-block">&#xa0;</span>
+                    </p>
+                </div>
+                <p style="margin-top:0pt; margin-bottom:0pt; line-height:108%; font-size:8pt">
+                    <img src="assets/img/logo-empty.png" width="100" height="100"
+                         style="margin-top:0pt; position:absolute;"/>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</div>

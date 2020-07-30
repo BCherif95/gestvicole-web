@@ -1,0 +1,9 @@
+@mixin sales-invoice-print-theme($theme) {
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    sales-invoice-print {
+
+    }
+}

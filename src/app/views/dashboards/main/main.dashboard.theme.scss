@@ -1,0 +1,19 @@
+@mixin dashboards-main-theme($theme) {
+
+    $background: map-get($theme, background);
+    $is-dark: map-get($theme, is-dark);
+
+    #dashboard-main {
+
+        > .center {
+
+            > .content {
+                @if ($is-dark) {
+                    background: map-get($background, background);
+                } @else {
+                    background: map-get($background, app-bar);
+                }
+            }
+        }
+    }
+}

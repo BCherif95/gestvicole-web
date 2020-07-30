@@ -1,0 +1,151 @@
+<div id="user" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/views/admin/users'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{user.firstname}}  {{user.lastname}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        Nouvelle Utilisateur
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Detail Utilisateur</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button (click)="save()"
+                    class="save-product-button"
+                    [disabled]="userForm.invalid || selectedRoleValues?.length <= 0"
+                    *ngIf="pageType ==='new'">
+                <span>Enregistrer</span>
+            </button>
+
+            <button mat-raised-button (click)="update()"
+                    class="save-product-button"
+                    [disabled]="userForm.invalid || selectedRoleValues?.length <= 0"
+                    *ngIf="pageType ==='edit'">
+                <span>Modifier</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="userForm" [formGroup]="userForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Etat Civil">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Prénom</mat-label>
+                                    <input matInput placeholder="Prénom"
+                                           name="firstname"
+                                           formControlName="firstname"
+                                           required>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Nom</mat-label>
+                                    <input matInput placeholder="Nom"
+                                           name="lastname"
+                                           formControlName="lastname"
+                                           required>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput placeholder="Email"
+                                           name="email"
+                                           formControlName="email">
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Tel</mat-label>
+                                    <input matInput placeholder="Tel"
+                                           name="telephone"
+                                           formControlName="telephone">
+                                </mat-form-field>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Coordonnées d'accès">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div fxLayout="row wrap" fxLayoutAlign="start start">
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Nom d'Utilisateur</mat-label>
+                                        <input matInput placeholder="Nom d'Utilisateur"
+                                               name="username"
+                                               formControlName="username"
+                                               required>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Mot de Passe</mat-label>
+                                        <input matInput placeholder="Mot de Passe" type="password"
+                                               name="password"
+                                               formControlName="password"
+                                               [required]='pageType === "new"'>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Rôles">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-checkbox (change)="selectAll($event)">Tout sélectionner</mat-checkbox>
+                                <mat-divider></mat-divider>
+                                <br/>
+                                <div class="checkbox-grid" formArrayName="roles"
+                                     *ngFor="let role of userForm.controls.roles.controls; let i = index">
+                                    <mat-checkbox (change)="itemCheek(i)" [(ngModel)]="roles[i].checked"
+                                                  [formControlName]="i">{{roles[i].name}}</mat-checkbox>
+                                </div>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

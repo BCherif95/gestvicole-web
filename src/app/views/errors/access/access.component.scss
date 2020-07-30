@@ -1,0 +1,37 @@
+@import "src/@fuse/scss/fuse";
+
+access {
+
+    #access {
+        width: 100%;
+
+        .content {
+            width: 90%;
+            max-width: 1024px !important;
+
+            .error-code {
+                font-size: 89px;
+                line-height: 1;
+                text-align: center;
+                margin-bottom: 16px;
+                font-weight: 400;
+            }
+
+            .message {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .sub-message {
+                font-size: 17px;
+                text-align: center;
+                margin: 16px auto 48px auto;
+            }
+
+            .report-link {
+                text-align: center;
+                font-size: 15px;
+            }
+        }
+    }
+}

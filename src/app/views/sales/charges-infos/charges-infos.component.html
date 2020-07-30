@@ -1,0 +1,122 @@
+<div class="page-layout carded fullwidth inner-scroll" id="charges-infos">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent doNotPrint"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header accent doNotPrint"
+             fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button [routerLink]="'/views/sales/charges'" class="mr-16" mat-icon-button>
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" fxLayout="column"
+                     fxLayoutAlign="start start">
+                    <div class="h2">
+                        Charge du {{charge.date |date: 'dd/MM/yyyy'}}
+                    </div>
+                    <!--<div class="subtitle secondary-text">
+                        <span>Pour</span>&nbsp;
+                        <span>{{devisDetails.customer?.name}}</span>
+                    </div>-->
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <div class="divChargeItems">
+                    <div class="responsiveTable">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th style="text-align: center;">Nom du bâtiment</th>
+                                <th style="text-align: center;">Production</th>
+                                <th style="text-align: center;">Effectif</th>
+                                <th style="text-align: center;">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let chargeItem of chargeItems">
+                                <td style="text-align: center;">
+                                    {{chargeItem.buildingName}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{chargeItem.production | number:'':'fr-FR'}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{chargeItem.effective | number:'':'fr-FR'}}
+                                </td>
+                                <td style="text-align: center;">
+                                    {{chargeItem.total | number:'':'fr-FR'}} F CFA
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr class="text-style">
+                                <th colspan="3"
+                                    style="background-color: inherit !important; color: #5F5F60 !important; text-align: right;">
+                                    Total production
+                                </th>
+                                <td style="text-align: center; color: #000000 !important;">{{total | number:'':'fr-FR'}}
+                                    F CFA
+                                </td>
+                            </tr>
+                            <tr class="text-style">
+                                <th colspan="3"
+                                    style="background-color: inherit !important; color: #5F5F60 !important; text-align: right;">
+                                    Total effectif
+                                </th>
+                                <td style="text-align: center; color: #000000 !important;">{{totalEffective | number:'':'fr-FR'}}
+                                </td>
+                            </tr>
+                            <tr class="text-style">
+                                <th colspan="3"
+                                    style="background-color: inherit !important; color: #5F5F60 !important; text-align: right;">
+                                    Consommation
+                                </th>
+                                <td style="text-align: center; color: #000000 !important;">{{consumption | number:'':'fr-FR'}}
+                                    F CFA
+                                </td>
+                            </tr>
+                            <tr class="text-style">
+                                <th colspan="3"
+                                    style="background-color: inherit !important; color: #5F5F60 !important; text-align: right;">
+                                    Total charge
+                                </th>
+                                <td style="text-align: center; color: #000000 !important;">{{totalLoad | number:'':'fr-FR'}}
+                                    F CFA
+                                </td>
+                            </tr>
+                            <tr class="text-style">
+                                <th colspan="3"
+                                    style="background-color: inherit !important; color: #5F5F60 !important; text-align: right;">
+                                    Marge nette
+                                </th>
+                                <td style="text-align: center; color: #000000 !important;">{{netMargin | number:'':'fr-FR'}}
+                                    F CFA
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

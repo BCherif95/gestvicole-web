@@ -1,0 +1,359 @@
+<div id="dashboard-main" class="page-layout simple right-sidebar" fxLayout="row">
+
+    <!-- CENTER -->
+    <div class="center" fusePerfectScrollbar>
+
+        <!-- HEADER -->
+        <div class="header accent p-24 pb-0" fxLayout="column" fxLayoutAlign="space-between">
+            <div fxLayout="row" fxLayoutAlign="space-between start">
+                <span class="mat-display-1 my-0 my-sm-24 welcome-message"
+                      [@animate]="{value:'*',params:{x:'50px'}}">Bienvenue, {{currentUser?.firstname}} {{currentUser?.lastname}}!
+                </span>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <mat-tab-group dynamicHeight>
+
+                <mat-tab label="Productions">
+
+                    <!-- WIDGET GROUP -->
+                    <div *fuseIfOnDom [@animateStagger]="{value:'50'}" class="widget-group" fxFlex="100"
+                         fxLayout="row wrap">
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Production Totale
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{prodDashBody?.totalProd| number:'':'fr-FR'}}
+                                    </p>
+                                    <p *ngIf="!dateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="dateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">La Production totale à la date ci-dessus</p>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Effectif Total
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{prodDashBody?.totalEffective| number:'':'fr-FR'}}
+                                    </p>
+                                    <p *ngIf="!dateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="dateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">L'effectif total à la date ci-dessus</p>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Mortalité Totale
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{prodDashBody?.totalMortality| number:'':'fr-FR'}}
+                                    </p>
+                                    <p *ngIf="!dateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="dateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">La mortalité totale à la date ci-dessus</p>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Total Alvéole cassé
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{prodDashBody?.totalAlveolusBroken| number:'':'fr-FR'}}
+                                    </p>
+                                    <p *ngIf="!dateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="dateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">Alvéole total cassé à la date ci-dessus</p>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-sm="100" fxLayout="row">
+                            <div class="fuse-widget-front">
+                                <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-form-field class="px-8" fxFlex="30">
+                                        <mat-select style="margin: 10px" placeholder="Choisir un Bâtiment"
+                                                    (selectionChange)="onChangeBuilding($event.value)">
+                                            <mat-option [value]="0" (click)="allProductions()">
+                                                Global
+                                            </mat-option>
+                                            <mat-option *ngFor="let building of buildings" [value]="building">
+                                                {{building.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field *ngIf="buildingSelected" style="margin: 5px" class="px-8" fxFlex="30">
+                                        <input matInput [matDatepicker]="searchDatePicker"
+                                               (dateInput)="searchDateSelected($event)"
+                                               placeholder="Choisir une date">
+                                        <mat-datepicker-toggle matSuffix [for]="searchDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #searchDatePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-sm="100" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div *ngIf="!dateSelected">
+                                    <prod-bar-chart
+                                        [value1]="prodDashBody?.totalProd"
+                                        [value2]="prodDashBody?.totalEffective"
+                                        [value3]="prodDashBody?.totalMortality">
+                                    </prod-bar-chart>
+                                </div>
+                                <div *ngIf="dateSelected">
+                                    <prod-line-chart
+                                        [week]="prodWeek"
+                                        [datasets1]="prodDatasets1"
+                                        [datasets2]="prodDatasets2">
+                                    </prod-line-chart>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Commercialisation">
+
+                    <!-- WIDGET GROUP -->
+                    <div *fuseIfOnDom [@animateStagger]="{value:'50'}" class="widget-group" fxFlex="100"
+                         fxLayout="row wrap">
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Total Payé
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{saleDashBody?.sumAmountPaid| number:'':'fr-FR'}} F CFA
+                                    </p>
+                                    <a [routerLink]="'/views/sales/invoices'">Voir la liste</a>
+                                   <!-- <p *ngIf="!saleDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="saleDateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <a [routerLink]="'/views/sales/invoices'">Voir la liste</a>
+                                    <p style="text-align: center">Le montant total à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Reste à Payé
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{saleDashBody?.sumStayToPay| number:'':'fr-FR'}} F CFA
+                                    </p>
+                                    <a [routerLink]="'/views/sales/invoices'">Voir la liste</a>
+                                    <!--<p *ngIf="!saleDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="saleDateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <a [routerLink]="'/views/sales/invoices'">Voir la liste</a>
+                                    <p style="text-align: center">Le montant total reste à payé à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Total Client
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{saleDashBody?.totalCustomerCount| number:'':'fr-FR'}}
+                                    </p>
+                                    <a [routerLink]="'/views/sales/customers'">Voir la liste</a>
+                                   <!-- <p *ngIf="!saleDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="saleDateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">Les client rengistrer à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Commande Passée
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{saleDashBody?.totalOrderCount| number:'':'fr-FR'}}
+                                    </p>
+                                    <a [routerLink]="'/views/sales/customers'">Voir la liste</a>
+                                    <!--<p *ngIf="!saleDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="saleDateSelected">{{dateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">Les commandes passées à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-sm="100" fxLayout="row">
+                            <div class="fuse-widget-front">
+                                <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-form-field style="margin: 5px" class="px-8" fxFlex="30">
+                                        <input matInput [matDatepicker]="searchDatePicker"
+                                               (dateInput)="searchSaleByDate($event)"
+                                               placeholder="Choisir une date">
+                                        <mat-datepicker-toggle matSuffix [for]="searchDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #searchDatePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-sm="100" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div *ngIf="!saleDateSelected">
+                                    <sale-bar-chart
+                                        [value1]="saleDashBody?.sumAmountPaid"
+                                        [value2]="saleDashBody?.sumStayToPay"
+                                        [value3]="saleDashBody?.totalOrderCount">
+                                    </sale-bar-chart>
+                                </div>
+                                <div *ngIf="saleDateSelected">
+                                    <sale-line-chart
+                                        [months]="months"
+                                        [dataset]="dataset">
+                                    </sale-line-chart>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Marges">
+
+                    <!-- WIDGET GROUP -->
+                    <div *fuseIfOnDom [@animateStagger]="{value:'50'}" class="widget-group" fxFlex="100"
+                         fxLayout="row wrap">
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Montant Production
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{chargeDashBody?.sumTotalProd| number:'':'fr-FR'}} F CFA
+                                    </p>
+                                    <!--<p *ngIf="!margeDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="margeDateSelected">{{margeDateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p style="text-align: center">Le Montant total de la production à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Total Charge
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{chargeDashBody?.sumTotalLoad| number:'':'fr-FR'}} F CFA
+                                    </p>
+                                   <!-- <p *ngIf="!margeDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="margeDateSelected">{{margeDateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p>La charge totale à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Total Effectif
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{chargeDashBody?.sumTotalEffective| number:'':'fr-FR'}}
+                                    </p>
+                                    <!--<p *ngIf="!margeDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="margeDateSelected">{{margeDateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p>L'effectif total à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-md="25" fxFlex.gt-xs="50" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div class="pt-8 pb-32" fxLayout="column" fxLayoutAlign="center center">
+                                    <p style="font-size: 15px; font-weight: bold;color: #5F5F60;text-transform: uppercase;">
+                                        Marge Nette
+                                    </p>
+                                    <p style="font-size: 15px;font-weight: bold;color: black;">
+                                        {{chargeDashBody?.sumNetMargin| number:'':'fr-FR'}} F CFA
+                                    </p>
+                                   <!-- <p *ngIf="!margeDateSelected">{{today |date: 'dd/MM/yyyy'}}</p>
+                                    <p *ngIf="margeDateSelected">{{margeDateSelected |date: 'dd/MM/yyyy'}}</p>
+                                    <p>La marge nette totale à la date ci-dessus</p>-->
+                                </div>
+                            </div>
+                        </fuse-widget>
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-sm="100" fxLayout="row">
+                            <div class="fuse-widget-front">
+                                <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-form-field style="margin: 5px" class="px-8" fxFlex="30">
+                                        <input matInput [matDatepicker]="searchDatePicker"
+                                               (dateInput)="searchMargeByDate($event)"
+                                               placeholder="Choisir une date">
+                                        <mat-datepicker-toggle matSuffix [for]="searchDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #searchDatePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fuse-widget>
+
+                        <fuse-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" fxFlex="100"
+                                     fxFlex.gt-sm="100" fxLayout="column">
+                            <div class="fuse-widget-front">
+                                <div *ngIf="margeDateSelected">
+                                    <charge-line-chart
+                                        [week]="week"
+                                        [datasets1]="datasets1"
+                                        [datasets2]="datasets2">
+                                    </charge-line-chart>
+                                </div>
+                                <div *ngIf="!margeDateSelected">
+                                    <charge-bar-chart
+                                        [value1]="chargeDashBody?.sumTotalProd"
+                                        [value2]="chargeDashBody?.sumTotalLoad"
+                                        [value3]="chargeDashBody?.sumNetMargin">
+                                    </charge-bar-chart>
+                                </div>
+                            </div>
+                        </fuse-widget>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

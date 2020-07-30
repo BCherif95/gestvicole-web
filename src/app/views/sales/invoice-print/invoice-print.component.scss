@@ -1,0 +1,303 @@
+@import "src/@fuse/scss/fuse";
+
+sales-invoice-print {
+
+    #invoice {
+
+        &.compact {
+            padding: 0;
+
+            .invoice-container {
+                padding: 64px;
+                margin: 0 auto;
+
+                .card {
+                    width: 1020px;
+                    min-width: 1020px;
+                    max-width: 1020px;
+                    padding: 64px 88px;
+                    overflow: hidden;
+                    background: #FFFFFF;
+                    @include mat-elevation(7);
+
+                    .invoice-margin-space-1 {
+                        margin-top: 0pt;
+                        margin-bottom: 8pt;
+                        line-height: 108%;
+                        font-size: 8pt;
+                    }
+
+                    .invoice-margin-space-2 {
+                        margin-top: 0pt;
+                        margin-bottom: 8pt;
+                        line-height: 108%;
+                        font-size: 8pt;
+                    }
+
+                    .invoice-margin-space-3 {
+                        margin-top: 0pt;
+                        margin-bottom: 8pt;
+                        text-align: center;
+                        line-height: 108%;
+                        font-size: 21pt;
+                    }
+
+                    .invoice-margin-space-4 {
+                        margin-top: 0pt;
+                        margin-bottom: 0pt;
+                        font-size: 8pt;
+                    }
+
+                    .header {
+
+
+                    }
+
+                    .content {
+
+                        div:first-child {
+                            float: left;
+                        }
+
+                        div:last-child {
+                            float: right;
+                        }
+
+                        .invoice-info-table {
+                            border: 0.75pt solid rgb(0, 0, 0);
+                            width: 34%;
+                            border-collapse: collapse;
+                            float: right;
+
+                            tbody {
+                                td {
+                                    width: 34pt;
+                                    padding-right: 5pt;
+                                    padding-left: 5pt;
+                                    vertical-align: top;
+                                }
+                            }
+                        }
+
+                        .invoice-bon-table {
+                            border: 0.75pt solid rgb(0, 0, 0);
+                            border-radius: 8pt;
+                            width: 34%;
+                            border-collapse: collapse;
+                            float: left;
+
+                            td {
+                                width: 34pt;
+                                padding-right: 5pt;
+                                padding-left: 5pt;
+                                vertical-align: top;
+
+                                p span:first-child {
+                                }
+
+                                p span:last-child {
+                                    float: right;
+                                }
+                            }
+                        }
+
+                        .invoice-total-table {
+                            border: 0.75pt solid rgb(0, 0, 0);
+                            width: 34%;
+                            border-collapse: collapse;
+                            float: right;
+
+                            td {
+                                width: 34pt;
+                                padding-right: 5pt;
+                                padding-left: 5pt;
+                                vertical-align: top;
+
+                                p span:first-child {
+                                }
+
+                                p span:last-child {
+                                    float: right;
+                                }
+                            }
+                        }
+
+                        .invoice-table {
+                            border: 0.75pt solid rgb(0, 0, 0);
+                            border-collapse: collapse;
+                            margin-right: calc(1%);
+                            width: 100%;
+
+                            thead {
+                                tr {
+                                    th {
+                                        &:first-child {
+                                            padding-left: 8px;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 8px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            tbody {
+
+                                .table-header {
+                                    height: 34pt;
+                                    background-color: #422874  !important;
+                                    -webkit-print-color-adjust: exact;
+                                }
+
+                                .table-header-title {
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    text-align: center;
+                                    font-size: 11pt;
+                                    color: white !important;
+                                }
+
+                                .table-row-data {
+                                    height: 34pt;
+                                    padding-right: 3pt;
+                                    padding-left: 3pt;
+                                    vertical-align: middle;
+                                }
+
+                                .table-row-data-text-1 {
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    margin-left: 8pt;
+                                    font-size: 8pt
+                                }
+
+                                .table-row-data-text-2 {
+                                    margin-top: 0pt;
+                                    margin-bottom: 0pt;
+                                    text-align: center;
+                                    font-size: 8pt
+                                }
+
+                                tr {
+
+                                    td {
+                                        border: 0.75pt solid rgb(0, 0, 0);
+
+                                        &:first-child {
+                                            padding-left: 8px;
+                                        }
+
+                                        &:last-child {
+                                            padding-right: 8px;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                        .p-span {
+                            font-size: 8pt;
+
+                            p span:first-child {
+                            }
+
+                            p span:last-child {
+                                float: right;
+                            }
+                        }
+
+                    }
+
+                    .footer {
+                    }
+                }
+            }
+        }
+    }
+
+    /* PRINT STYLES */
+    @media print {
+
+        .no-print, .no-print * {
+            display: none !important;
+        }
+
+        /* Invoice Specific Styles */
+        #invoice {
+
+            &.compact {
+                background: white;
+
+                .invoice-container {
+                    padding: 0;
+
+                    .card {
+                        width: 100%;
+                        min-width: 0;
+                        background: none;
+                        padding: 0;
+                        box-shadow: none;
+
+                        @page {
+                            margin: 0 10px;
+                            -webkit-print-color-adjust: exact;
+
+                            @bottom-right {
+                                content: counter(page) "/" counter(pages);
+                            }
+
+                        }
+
+                        #content {
+                            display: table;
+                        }
+
+                        #footer {
+                            display: table-footer-group;
+                        }
+
+                        #page-number:after {
+                            content: "Page " counter(page);
+                            counter-increment: page;
+                        }
+
+                        .header, .header-space {
+                            height: 50px;
+                        }
+                        .footer, .footer-space {
+                            height: 100px;
+                        }
+
+                        .header {
+                            position: fixed;
+                            top: 0;
+                        }
+
+                        .content {
+
+                        }
+
+                        .footer {
+                            position: fixed;
+                            left: 0;
+                            bottom: 0;
+                            width: 100%;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        table {
+            table-layout: fixed;
+        }
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+}

@@ -1,0 +1,110 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" matTooltip="Fermer le dialogue">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="paymentForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field class="readonly-wrapper" appearance="outline" fxFlex>
+                    <mat-label>Facture</mat-label>
+                    <mat-select class="readonly-block" formControlName="invoice"
+                                (selectionChange)="findInvoiceSelected($event.value)"
+                                [disabled]="true"
+                                required>
+                        <mat-option *ngFor="let invoice of invoices"
+                                    [value]="invoice.id">{{invoice.number}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field class="readonly-wrapper" appearance="outline" fxFlex>
+                    <mat-label>Mode de reglement</mat-label>
+                    <mat-select class="readonly-block"
+                                formControlName="methodOfPayment"
+                                [disabled]="true"
+                                required>
+                        <mat-option *ngFor="let method of methodes"
+                                    [value]="method">{{methodOfPaymentEnum[method]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Date de paiement</mat-label>
+                    <input matInput [matDatepicker]="paymentDateDatePicker" name="paymentDate"
+                           formControlName="paymentDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="paymentDateDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #paymentDateDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Total de la facture</mat-label>
+                    <input type="text"
+                           formControlName="total"
+                           mask="separator"
+                           readonly
+                           matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Montant payé</mat-label>
+                    <input type="text"
+                           formControlName="amount"
+                           mask="separator"
+                           matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Référence de paiement</mat-label>
+                    <input formControlName="reference" matInput>
+                </mat-form-field>
+            </div>
+
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+
+        <button (click)="matDialogRef.close()"
+                mat-button
+                class="mr-8"
+                matTooltip="Annuler">
+            Annuler
+        </button>
+
+        <button *ngIf="action === 'paid'"
+                mat-button
+                (click)="save()"
+                class="save-button"
+                [disabled]="paymentForm.invalid">
+            Enregistrer
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="save-button"
+                [disabled]="paymentForm.invalid">
+            Modifier
+        </button>
+
+
+    </div>
+</div>

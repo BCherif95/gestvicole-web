@@ -1,0 +1,21 @@
+@mixin access-theme($theme) {
+
+    $foreground: map-get($theme, foreground);
+
+    access {
+
+        #access {
+
+            .content {
+
+                .message {
+                    color: map-get($foreground, secondary-text);
+                }
+
+                .sub-message {
+                    color: map-get($foreground, secondary-text);
+                }
+            }
+        }
+    }
+}

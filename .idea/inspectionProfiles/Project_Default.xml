@@ -1,0 +1,58 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="mat-icon-button" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="33">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="productions-buildings" />
+            <item index="7" class="java.lang.String" itemvalue="login-view" />
+            <item index="8" class="java.lang.String" itemvalue="view-production-buildings" />
+            <item index="9" class="java.lang.String" itemvalue="view-production-productions" />
+            <item index="10" class="java.lang.String" itemvalue="admin-users" />
+            <item index="11" class="java.lang.String" itemvalue="admin-roles" />
+            <item index="12" class="java.lang.String" itemvalue="sale-customers-theme" />
+            <item index="13" class="java.lang.String" itemvalue="sale-customers" />
+            <item index="14" class="java.lang.String" itemvalue="sale-orders" />
+            <item index="15" class="java.lang.String" itemvalue="sale-invoices" />
+            <item index="16" class="java.lang.String" itemvalue="sale-payments" />
+            <item index="17" class="java.lang.String" itemvalue="sales-customers" />
+            <item index="18" class="java.lang.String" itemvalue="sales-orders" />
+            <item index="19" class="java.lang.String" itemvalue="sales-invoices" />
+            <item index="20" class="java.lang.String" itemvalue="sales-payments" />
+            <item index="21" class="java.lang.String" itemvalue="sales-charges" />
+            <item index="22" class="java.lang.String" itemvalue="sales-invoice-print" />
+            <item index="23" class="java.lang.String" itemvalue="button" />
+            <item index="24" class="java.lang.String" itemvalue="mat-toolbar" />
+            <item index="25" class="java.lang.String" itemvalue="mat-toolbar-row" />
+            <item index="26" class="java.lang.String" itemvalue="mat-icon" />
+            <item index="27" class="java.lang.String" itemvalue="stock-management-categories" />
+            <item index="28" class="java.lang.String" itemvalue="ng-container" />
+            <item index="29" class="java.lang.String" itemvalue="stock-management-products" />
+            <item index="30" class="java.lang.String" itemvalue="stock-management-stocks" />
+            <item index="31" class="java.lang.String" itemvalue="stock-management-stock-entries" />
+            <item index="32" class="java.lang.String" itemvalue="stock-management-stock-outs" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="TsLint" enabled="false" level="ERROR" enabled_by_default="false" />
+  </profile>
+</component>

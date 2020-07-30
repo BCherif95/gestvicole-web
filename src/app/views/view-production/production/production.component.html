@@ -1,0 +1,160 @@
+<div id="production" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/views/view-production/productions'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{production.building?.name}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        Nouvelle Production
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Detail Production</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button (click)="save()"
+                    class="save-product-button"
+                    [disabled]="productionForm.invalid"
+                    *ngIf="pageType ==='new'">
+                <span>Enregistrer</span>
+            </button>
+
+            <button mat-raised-button (click)="save()"
+                    class="save-product-button"
+                    [disabled]="productionForm.invalid || productionForm.pristine"
+                    *ngIf="pageType ==='edit'">
+                <span>Modidier</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="productForm" [formGroup]="productionForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Batiment">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Bâtiment</mat-label>
+                                    <mat-select (selectionChange)="findBuildingSelected($event.value)"
+                                                formControlName="building"
+                                                required>
+                                        <mat-option *ngFor="let building of buildings" [value]="building.id">
+                                            {{building.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Effectif General</mat-label>
+                                    <input formControlName="generalEffective" matInput required>
+                                </mat-form-field>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Production">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div fxLayout="row wrap" fxLayoutAlign="start start">
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Date de production</mat-label>
+                                        <input [matDatepicker]="picker" formControlName="date" required
+                                               matInput>
+                                        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Alvéole</mat-label>
+                                        <input matInput placeholder="alvéole produit"
+                                               name="overallProduction"
+                                               formControlName="overallProduction"
+                                               type="text" mask="separator">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Double Jaune</mat-label>
+                                        <input matInput placeholder="double jaune"
+                                               name="prodDoubleYellow"
+                                               formControlName="prodDoubleYellow"
+                                               type="text" mask="separator">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Petit Alvéole</mat-label>
+                                        <input matInput placeholder="petit alvéole"
+                                               name="prodSmallAlveolus"
+                                               formControlName="prodSmallAlveolus"
+                                               type="text" mask="separator">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+
+                        <mat-tab label="Mortalité">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Mortalié</mat-label>
+                                    <input matInput placeholder="mortalité"
+                                           name="mortality"
+                                           formControlName="mortality"
+                                           type="text" mask="separator">
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Alvéole Cassé</mat-label>
+                                    <input matInput placeholder="alvéole cassé"
+                                           name="alveolusBroken"
+                                           formControlName="alveolusBroken"
+                                           type="text" mask="separator">
+                                </mat-form-field>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

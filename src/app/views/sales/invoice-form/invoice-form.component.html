@@ -1,0 +1,132 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" matTooltip="Fermer le dialogue">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="invoiceForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field class="readonly-wrapper" appearance="outline" fxFlex>
+                    <mat-label>Commande</mat-label>
+                    <mat-select class="readonly-block" formControlName="order"
+                                (selectionChange)="findOrderSelected($event.value)"
+                                [disabled]="true"
+                                required>
+                        <mat-option *ngFor="let order of orders"
+                                    [value]="order.id">{{order.number}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field class="readonly-wrapper" appearance="outline" fxFlex>
+                    <mat-label>Client</mat-label>
+                    <mat-select class="readonly-block" formControlName="customer"
+                                (selectionChange)="findCustomerSelected($event.value)"
+                                [disabled]="true"
+                                required>
+                        <mat-option *ngFor="let customer of customers"
+                                    [value]="customer.id">{{customer.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Date de la facture</mat-label>
+                    <input matInput [matDatepicker]="invoiceDateDatePicker" name="invoiceDate"
+                           formControlName="invoiceDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="invoiceDateDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #invoiceDateDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Mode de reglement</mat-label>
+                    <mat-select formControlName="methodOfPayment" required>
+                        <mat-option *ngFor="let method of methodes"
+                                    [value]="method">{{methodOfPaymentEnum[method]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Quantité</mat-label>
+                    <input type="text"
+                           formControlName="quantity"
+                           mask="separator"
+                           readonly
+                           matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>P.U</mat-label>
+                    <input type="text"
+                           formControlName="unitPrice"
+                           mask="separator"
+                           readonly
+                           matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Montant</mat-label>
+                    <input type="text"
+                           formControlName="amount"
+                           mask="separator"
+                           readonly
+                           matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Référence de la facture</mat-label>
+                    <input formControlName="reference" matInput>
+                </mat-form-field>
+            </div>
+
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="center">
+
+        <button (click)="matDialogRef.close()"
+                mat-button
+                class="mr-8"
+                matTooltip="Annuler">
+            Annuler
+        </button>
+
+        <button *ngIf="action === 'bill'"
+                mat-button
+                (click)="save()"
+                class="save-button"
+                [disabled]="invoiceForm.invalid">
+            Enregistrer
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="save-button"
+                [disabled]="invoiceForm.invalid">
+            Modifier
+        </button>
+
+
+    </div>
+</div>
