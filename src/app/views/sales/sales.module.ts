@@ -36,7 +36,6 @@ import {SalesInvoiceFormDialogComponent } from './invoice-form/invoice-form.comp
 import {PaymentsComponent} from './payments/payments.component';
 import {PaymentsService} from './payments/payments.service';
 import {SalesPaymentFormDialogComponent} from './payment-form/payment-form.component';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {ChargesComponent} from './charges/charges.component';
 import {ChargesService} from './charges/charges.service';
 import {SalesChargeFormDialogComponent} from './charge-form/charge-form.component';
@@ -44,9 +43,11 @@ import {InvoicePrintComponent} from './invoice-print/invoice-print.component';
 import {InvoicePrintService} from './invoice-print/invoice-print.service';
 import {ChargesInfosService} from './charges-infos/charges-infos.service';
 import {ChargesInfosComponent} from './charges-infos/charges-infos.component';
+import {ConfirmDialogModule} from '../confirm-dialog/confirm-dialog.module';
 
-// @ts-ignore
-export const options: Partial<IConfig> | (() => Partial<IConfig>);
+const options: Partial<IConfig> = {
+    validation: false
+}
 
 
 const routes: Routes = [
@@ -115,7 +116,6 @@ const routes: Routes = [
         SalesInvoiceFormDialogComponent,
         SalesPaymentFormDialogComponent,
         SalesChargeFormDialogComponent,
-        ConfirmDialogComponent,
         ChargesInfosComponent
     ],
     imports: [
@@ -146,7 +146,8 @@ const routes: Routes = [
         FuseSharedModule,
         FuseWidgetModule,
         MatDialogModule,
-        MatMenuModule
+        MatMenuModule,
+        ConfirmDialogModule
     ],
     providers: [
         CustomersService,
@@ -157,8 +158,7 @@ const routes: Routes = [
         SalesOrderFormDialogComponent,
         SalesInvoiceFormDialogComponent,
         SalesPaymentFormDialogComponent,
-        SalesChargeFormDialogComponent,
-        ConfirmDialogComponent
+        SalesChargeFormDialogComponent
     ]
 })
 export class SalesModule {

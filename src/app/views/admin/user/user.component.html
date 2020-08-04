@@ -126,7 +126,7 @@
                                 <mat-divider></mat-divider>
                                 <br/>
                                 <div class="checkbox-grid" formArrayName="roles"
-                                     *ngFor="let role of userForm.controls.roles.controls; let i = index">
+                                     *ngFor="let role of userForm.controls.roles['controls']; let i = index">
                                     <mat-checkbox (change)="itemCheek(i)" [(ngModel)]="roles[i].checked"
                                                   [formControlName]="i">{{roles[i].name}}</mat-checkbox>
                                 </div>

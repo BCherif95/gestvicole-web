@@ -32,8 +32,9 @@ import { StockEntryComponent } from './stock-entry/stock-entry.component';
 import { StockOutComponent } from './stock-out/stock-out.component';
 import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
 
-// @ts-ignore
-export const options: Partial<IConfig> | (() => Partial<IConfig>);
+const options: Partial<IConfig> = {
+    validation: false
+}
 
 const routes: Routes = [
     {

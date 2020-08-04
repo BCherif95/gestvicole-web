@@ -32,8 +32,9 @@ import {ProductionService} from './production/production.service';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 import {MatTableExporterModule} from 'mat-table-exporter';
 
-// @ts-ignore
-export const options: Partial<IConfig> | (() => Partial<IConfig>);
+const options: Partial<IConfig> = {
+    validation: false
+}
 
 
 const routes: Routes = [
