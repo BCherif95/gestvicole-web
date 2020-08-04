@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc1956ce-bfd2-497b-ae36-8f404b1a7f24" name="Default" comment="apply some changes" />
+    <list default="true" id="cc1956ce-bfd2-497b-ae36-8f404b1a7f24" name="Default" comment="apply some changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/environments/environment.prod.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -183,7 +186,9 @@
       <workItem from="1595759869612" duration="9366000" />
       <workItem from="1595851688633" duration="7692000" />
       <workItem from="1595976138337" duration="1706000" />
-      <workItem from="1596061859061" duration="1754000" />
+      <workItem from="1596061859061" duration="2372000" />
+      <workItem from="1596489483061" duration="196000" />
+      <workItem from="1596575967624" duration="299000" />
     </task>
     <task id="LOCAL-00001" summary="apply some changes">
       <created>1587511718795</created>
