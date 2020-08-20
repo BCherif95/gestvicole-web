@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {METHOD_OF_PAYMENT} from '../../../data/enums/enums';
 import {Payment} from '../../../data/models/payment.model';
 import {PaymentsService} from '../payments/payments.service';
+import {ProjectUtils} from '../../../utils/project-utils';
 
 @Component({
     selector     : 'sales-payment-form-dialog',
@@ -26,6 +27,9 @@ export class SalesPaymentFormDialogComponent implements OnInit, OnDestroy{
     dialogTitle: string;
     methodes: any[];
     methodOfPaymentEnum = METHOD_OF_PAYMENT;
+
+    projectUtils = new ProjectUtils();
+    currentUser = this.projectUtils.getAppUser();
 
     private _unsubscribeAll: Subject<any>;
 
@@ -52,18 +56,21 @@ export class SalesPaymentFormDialogComponent implements OnInit, OnDestroy{
     {
         // Set the defaults
         this.action = _data.action;
+        this.payment = new Payment();
 
-        if ( this.action === 'edit' )
-        {
-            this.dialogTitle = 'Modifier un paiement';
-            this.payment = _data.payment;
-        }
-        else if (this.action === 'paid'){
-            this.dialogTitle = 'Émettre un paiement';
-            this.invoice = _data.invoice;
+        if (this.action === 'issue'){
+            this.payment.invoice = _data.invoice;
+            this.getInvoiceById(this.payment.invoice.id);
+            this.dialogTitle = 'Emission de paiement sur la facture Nº' + this.payment.invoice.number;
             this.issuePaymentForm();
-        }else {
-            this.dialogTitle = 'Ajouter un paiement';
+        }else if (this.action === 'validate') {
+            this.payment = _data.payment;
+            this.dialogTitle = 'Validation de paiement de la Facture Nº ' + this.payment.number;
+
+            this.validatePaymentForm();
+
+        } else {
+            this.dialogTitle = 'Nouveau Paiment';
             this.payment = new Payment({});
         }
     }
@@ -95,12 +102,31 @@ export class SalesPaymentFormDialogComponent implements OnInit, OnDestroy{
     issuePaymentForm(){
         this.paymentForm = this._formBuilder.group({
             id: new FormControl(''),
-            invoice: new FormControl(this.invoice.id, Validators.required),
+            invoice: new FormControl(this.payment.invoice.id, Validators.required),
             paymentDate: new FormControl(new Date(), Validators.required),
-            amount: new FormControl('', Validators.required),
-            methodOfPayment: new FormControl(this.invoice.methodOfPayment, Validators.required),
-            total: new FormControl(this.invoice.amount),
-            reference: new FormControl('')
+            netToPay: new FormControl('', Validators.required),
+            amount: new FormControl(''),
+            methodOfPayment: new FormControl(this.payment.invoice.methodOfPayment, Validators.required),
+            stayToPay: new FormControl(this.payment.invoice ? this.payment.invoice.stayToPay : 0),
+            total: new FormControl(this.payment.invoice ? this.payment.invoice.amount : 0)
+        });
+        this.updateAmounts();
+    }
+
+    validatePaymentForm() {
+        let netToPay = this.payment.netToPay;
+        let amount = netToPay;
+        let stayToPay = this.payment.invoice ? (this.payment.invoice.amount - amount) : 0;
+        this.paymentForm = this._formBuilder.group({
+            id: new FormControl(this.payment.id),
+            reference: new FormControl(this.payment.reference),
+            methodOfPayment: new FormControl(this.payment.methodOfPayment, Validators.required),
+            paymentDate: new FormControl(new Date(this.payment.paymentDate), Validators.required),
+            invoice: new FormControl(this.payment.invoice, Validators.required),
+            netToPay: new FormControl(netToPay, Validators.required),
+            amount: new FormControl(amount, Validators.required),
+            stayToPay: new FormControl(stayToPay),
+            total: new FormControl(this.payment.invoice ? this.payment.invoice.amount : 0)
         });
     }
 
@@ -120,19 +146,68 @@ export class SalesPaymentFormDialogComponent implements OnInit, OnDestroy{
         this.getInvoiceById(value);
     }
 
-    save(){
-        this.payment = new Payment();
-        this.payment = this.paymentForm.getRawValue();
-        this.payment.invoice = this.invoice;
-        this._paymentsService.create(this.payment).subscribe(data => {
-            if (data['status'] === 'OK') {
-                this._toastService.success(data['message']);
-                this._router.navigateByUrl('/views/sales/payments');
-            } else {
-                this._toastService.error(data['message']);
-            }
+    save() {
+        if (this.paymentForm.get('netToPay').value <= 0) {
+            this._toastService.error('Le net à payer est toujours superieur à 0');
             this.matDialogRef.close();
-        });
+        }
+        this.payment = this.paymentForm.getRawValue();
+        if (this.action === 'issue') {
+            this.payment.amount = this.payment.netToPay;
+            this.payment.invoice = this.invoice;
+            this.payment.createBy = this.projectUtils.getAppUser();
+            this._paymentsService.create(this.payment).subscribe(ret => {
+                if (ret['status'] === 'OK') {
+                    let invoicePayment = ret['response'];
+                    this._toastService.success(ret['message']);
+                    // this._router.navigateByUrl('/views/sales/payments');
+                    this._router.navigateByUrl('/views/sales/print/payment/'+invoicePayment.id);
+                    if (this._paymentsService.payments) {
+                        this._paymentsService.payments.push(ret['response']);
+                        this._paymentsService.onPaymentsChanged.next(this._paymentsService.payments);
+                    }
+                    this.matDialogRef.close();
+                } else {
+                    this._toastService.error(ret['message']);
+                }
+            }, error => {
+            });
+        } else if (this.action === 'validate') {
+            this.payment.validateBy = this.currentUser;
+            console.log(this.currentUser);
+            this._paymentsService.validate(this.payment).subscribe(ret => {
+                if (ret['status'] === 'OK') {
+                    this._toastService.success(ret['message']);
+                    this._paymentsService.getPayments();
+
+                    this.matDialogRef.close();
+                } else {
+                    this._toastService.error(ret['message']);
+                }
+            }, error => {
+            });
+        }
+    }
+
+    checkNetToPay(value) {
+        if (value) {
+            let netToPay = Number.parseInt(value.replace(/ /g, ''));
+            if (netToPay < this.payment.invoice.stayToPay) {
+                this.paymentForm.get('netToPay').setValue(netToPay);
+            } else {
+                this.paymentForm.get('netToPay').setValue(this.payment.invoice.stayToPay);
+                this._toastService.warning('Le montant ne peut pas depasser le reste à payer');
+            }
+        } else {
+            this.paymentForm.get('netToPay').setValue(0);
+        }
+        this.updateAmounts();
+    }
+
+    updateAmounts() {
+        let netToPay = this.paymentForm.get('netToPay').value;
+        let newStayToPay = this.payment.invoice.stayToPay - netToPay;
+        this.paymentForm.get('stayToPay').setValue(newStayToPay);
     }
 
 }

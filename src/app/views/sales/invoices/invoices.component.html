@@ -87,9 +87,17 @@
 
                 <!-- amount Column -->
                 <ng-container matColumnDef="amount">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Montant</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Montant total</mat-header-cell>
                     <mat-cell *matCellDef="let invoice">
                         <p class="text-truncate">{{invoice.amount| number:'':'fr-FR'}} F</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- amount Column -->
+                <ng-container matColumnDef="stayToPay">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Reste à payer</mat-header-cell>
+                    <mat-cell *matCellDef="let invoice">
+                        <p class="text-truncate">{{invoice.stayToPay| number:'':'fr-FR'}} F</p>
                     </mat-cell>
                 </ng-container>
 
@@ -127,18 +135,18 @@
                                     <span>Modifier</span>
                                 </button>-->
                                 <button
-                                    *ngIf="invoice.state === 'OPEN' && !invoice.paid"
+                                    *ngIf="invoice.state === 'OPEN' || invoice.state ==='IN_PAYMENT'"
                                     mat-menu-item
-                                    (click)="issuePayment(invoice)"
+                                    (click)="issuePayment('issue', invoice)"
                                     matTooltip="paiement">
                                     <mat-icon>assignment</mat-icon>
                                     <span>Émettre un paiement</span>
                                 </button>
-                                <button mat-menu-item
+                                <!--<button mat-menu-item
                                         [routerLink]="'/views/sales/invoices/'+invoice.id">
                                     <mat-icon>print</mat-icon>
                                     <span>Imprimer</span>
-                                </button>
+                                </button>-->
                             </mat-menu>
                         </div>
                     </mat-cell>

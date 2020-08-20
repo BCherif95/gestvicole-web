@@ -110,8 +110,8 @@ export class SalesInvoiceFormDialogComponent implements OnInit, OnDestroy{
             methodOfPayment: new FormControl('', Validators.required),
             quantity: new FormControl(this.order.quantity,Validators.required),
             unitPrice: new FormControl(this.order.unitPrice,Validators.required),
-            amount: new FormControl(this.order.amount,Validators.required),
-            reference: new FormControl('')
+            amount: new FormControl(this.order.amount,Validators.required)
+            // reference: new FormControl('')
         });
     }
 

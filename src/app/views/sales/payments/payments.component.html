@@ -19,7 +19,7 @@
                     payment
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    Paiements
+                    Paiements de facture
                 </span>
             </div>
             <!-- / APP TITLE -->
@@ -54,10 +54,25 @@
                        fusePerfectScrollbar>
 
                 <!-- invoice Column -->
+                <ng-container matColumnDef="customer">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Client</mat-header-cell>
+                    <mat-cell *matCellDef="let payment">
+                        <p class="text-truncate">{{payment?.invoice?.customer?.name}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- invoice Column -->
                 <ng-container matColumnDef="invoice">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Facture</mat-header-cell>
                     <mat-cell *matCellDef="let payment">
-                        <p class="text-truncate">{{payment.invoice.number}}</p>
+                        <p class="text-truncate">{{payment?.number}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="netToPay">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Net à payer</mat-header-cell>
+                    <mat-cell *matCellDef="let payment">
+                        <p class="text-truncate">{{payment.netToPay| number:'':'fr-FR'}}</p>
                     </mat-cell>
                 </ng-container>
 
@@ -65,7 +80,8 @@
                 <ng-container matColumnDef="paymentDate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Date de paiement</mat-header-cell>
                     <mat-cell *matCellDef="let payment">
-                        <p class="text-truncate">{{payment.paymentDate |date: 'dd/MM/yyyy'}}</p>
+                        <p *ngIf="payment.state === 'VALIDATE'"
+                            class="text-truncate">{{payment.paymentDate |date: 'dd/MM/yyyy'}}</p>
                     </mat-cell>
                 </ng-container>
 
@@ -81,15 +97,17 @@
                 <ng-container matColumnDef="amount">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Montant Payée</mat-header-cell>
                     <mat-cell *matCellDef="let payment">
-                        <p class="text-truncate">{{payment.amount| number:'':'fr-FR'}}</p>
+                        <p *ngIf="payment.state === 'VALIDATE'"
+                            class="text-truncate">{{payment.amount| number:'':'fr-FR'}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- amount Column -->
                 <ng-container matColumnDef="balanceAfter">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Montant Après</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Solde facture</mat-header-cell>
                     <mat-cell *matCellDef="let payment">
-                        <p class="text-truncate">{{payment.balanceAfter| number:'':'fr-FR'}}</p>
+                        <p *ngIf="payment.state === 'VALIDATE'"
+                            class="text-truncate">{{payment.balanceAfter| number:'':'fr-FR'}}</p>
                     </mat-cell>
                 </ng-container>
 
@@ -97,7 +115,22 @@
                 <ng-container matColumnDef="methodOfPayment">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Mode de Paiement</mat-header-cell>
                     <mat-cell *matCellDef="let payment">
-                        <p class="text-truncate">{{methodofpayment[payment.methodOfPayment]}}</p>
+                        <p *ngIf="payment.state === 'VALIDATE'"
+                            class="text-truncate">{{methodOfPaymentEnum[payment.methodOfPayment]}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="createBy">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Enregistré par</mat-header-cell>
+                    <mat-cell *matCellDef="let payment">
+                        <p class="text-truncate">{{payment.createBy?.firstname}} {{payment.createBy?.lastname}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="validateBy">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Validé par</mat-header-cell>
+                    <mat-cell *matCellDef="let payment">
+                        <p class="text-truncate">{{payment.validateBy?.firstname}} {{payment.validateBy?.lastname}}</p>
                     </mat-cell>
                 </ng-container>
 
@@ -105,10 +138,15 @@
                 <ng-container matColumnDef="state">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Etat</mat-header-cell>
                     <mat-cell *matCellDef="let payment">
-                        <p class="text-truncate">{{paymentstate[payment.state]}}</p>
+                        <div class="priorities" fxLayout="row" fxLayoutAlign="start center">
+                            <div class="priority" fxLayout="row" fxLayoutAlign="start center">
+                                <div class="priority-color"
+                                     [ngStyle]="{'background-color': payment.state==='PENDING'?'#FF9800':payment.state==='VALIDATE'?'#388E3C':'#F44336'}"></div>
+                                <div class="priority-label">{{paymentState[payment.state]}}</div>
+                            </div>
+                        </div>
                     </mat-cell>
                 </ng-container>
-
 
                 <!-- Buttons Column -->
                 <ng-container matColumnDef="buttons">
@@ -120,11 +158,24 @@
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item [routerLink]="'/views/sales/print/payment/'+payment.id">
+                                    <mat-icon>print</mat-icon>
+                                    <span>Imprimer</span>
+                                </button>
+                                <button
+                                    *ngIf="payment.state === 'PENDING'"
+                                    mat-menu-item
+                                    (click)="showPaymentDialog('validate', payment)"
+                                    matTooltip="Valider le paiement">
+                                    <mat-icon>check</mat-icon>
+                                    <span>Valider le paiement</span>
+                                </button>
                                 <button
                                     mat-menu-item
-                                    matTooltip="annuler">
+                                    (click)="cancelPayment(payment)"
+                                    matTooltip="Annuler le paiement">
                                     <mat-icon>cancel</mat-icon>
-                                    <span>Annuler</span>
+                                    <span>Annuler le paiement</span>
                                 </button>
                             </mat-menu>
                         </div>

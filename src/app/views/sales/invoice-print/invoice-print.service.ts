@@ -5,6 +5,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Invoice} from '../../../data/models/invoice.model';
 import {ProjectUtils} from '../../../utils/project-utils';
 import {environment} from '../../../../environments/environment';
+import {Payment} from '../../../data/models/payment.model';
+import {PaymentsService} from '../payments/payments.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +14,9 @@ import {environment} from '../../../../environments/environment';
 export class InvoicePrintService implements Resolve<any> {
     routeParams: any;
     invoice: Invoice;
+    payment: Payment;
     onInvoiceChanged: BehaviorSubject<any>;
+    onPaymentChanged: BehaviorSubject<any>;
     readonly httpOptions: any;
     readonly serviceURL: string;
 
@@ -21,12 +25,15 @@ export class InvoicePrintService implements Resolve<any> {
      *
      *
      * @param {HttpClient} _httpClient
+     * @param _paymentsService
      */
     constructor(
-        private _httpClient: HttpClient
+        private _httpClient: HttpClient,
+        private _paymentsService: PaymentsService
     ) {
         // Set the defaults
         this.onInvoiceChanged = new BehaviorSubject({});
+        this.onPaymentChanged = new BehaviorSubject({});
         this.serviceURL = environment.serviceUrl + '/invoices';
         this.httpOptions = new ProjectUtils().httpHeaders();
     }
@@ -65,12 +72,18 @@ export class InvoicePrintService implements Resolve<any> {
                 this.onInvoiceChanged.next(false);
                 resolve(false);
             } else {
-                this._httpClient.get(this.serviceURL + '/' + this.routeParams.id, this.httpOptions)
-                    .subscribe((response: any) => {
-                        this.invoice = response['response'];
-                        this.onInvoiceChanged.next(this.invoice);
-                        resolve(response['response']);
-                    }, reject);
+                this._paymentsService.get(this.routeParams.id).subscribe(ret => {
+                    if (ret['status'] === 'OK') {
+                        this.payment = ret['response'];
+                        this.onPaymentChanged.next(this.payment);
+                        this._httpClient.get(this.serviceURL + '/' + this.payment.invoice.id, this.httpOptions)
+                            .subscribe((response: any) => {
+                                this.invoice = response['response'];
+                                this.onInvoiceChanged.next(this.invoice);
+                                resolve(response['response']);
+                            }, reject);
+                    }
+                });
             }
         });
     }

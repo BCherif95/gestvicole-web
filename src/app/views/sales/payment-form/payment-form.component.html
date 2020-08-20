@@ -1,5 +1,5 @@
 <div class="dialog-content-wrapper">
-    <mat-toolbar matDialogTitle class="mat-accent m-0">
+    <mat-toolbar matDialogTitle style="background: #422874 !important; color: white !important;" class="mat-accent m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title">{{dialogTitle}}</span>
             <button mat-icon-button (click)="matDialogRef.close()" matTooltip="Fermer le dialogue">
@@ -26,7 +26,21 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field class="readonly-wrapper" appearance="outline" fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Montant total de la facture</mat-label>
+                    <input type="text" formControlName="total" readonly mask="separator" matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Reste à payer</mat-label>
+                    <input type="text" formControlName="stayToPay" readonly mask="separator" matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Mode de reglement</mat-label>
                     <mat-select class="readonly-block"
                                 formControlName="methodOfPayment"
@@ -35,6 +49,25 @@
                         <mat-option *ngFor="let method of methodes"
                                     [value]="method">{{methodOfPaymentEnum[method]}}</mat-option>
                     </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="{{action==='validate'?'outline':'outline'}}" fxFlex>
+                    <mat-label>Net à Payer</mat-label>
+                    <input *ngIf="action === 'issue'" #d (input)="checkNetToPay(d.value)" type="text" required
+                           name="netToPay" formControlName="netToPay" mask="separator" matInput
+                           autocomplete="off">
+                    <input *ngIf="action === 'validate'" readonly type="text" required
+                           name="netToPay" formControlName="netToPay" mask="separator" matInput>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="action==='validate'" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Montant Payé</mat-label>
+                    <input type="text" required name="amount" readonly
+                           formControlName="amount" mask="separator" matInput>
                 </mat-form-field>
             </div>
 
@@ -48,7 +81,7 @@
                 </mat-form-field>
             </div>
 
-            <div fxLayout="row" fxLayoutAlign="start center">
+           <!-- <div fxLayout="row" fxLayoutAlign="start center">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Total de la facture</mat-label>
                     <input type="text"
@@ -67,14 +100,14 @@
                            mask="separator"
                            matInput>
                 </mat-form-field>
-            </div>
+            </div>-->
 
-            <div fxLayout="row" fxLayoutAlign="start start">
+            <!--<div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Référence de paiement</mat-label>
                     <input formControlName="reference" matInput>
                 </mat-form-field>
-            </div>
+            </div>-->
 
 
         </form>
@@ -90,21 +123,12 @@
             Annuler
         </button>
 
-        <button *ngIf="action === 'paid'"
-                mat-button
-                (click)="save()"
-                class="save-button"
-                [disabled]="paymentForm.invalid">
-            Enregistrer
-        </button>
-
-        <button *ngIf="action === 'edit'"
+        <button (click)="save()"
                 mat-button
                 class="save-button"
-                [disabled]="paymentForm.invalid">
-            Modifier
+                [disabled]="paymentForm.invalid"
+                aria-label="SAVE">
+            {{action === 'issue' ? 'ENREGISTRER' : action === 'validate' ? 'VALIDER' : ''}}
         </button>
-
-
     </div>
 </div>

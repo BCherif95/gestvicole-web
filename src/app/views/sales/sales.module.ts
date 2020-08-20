@@ -94,7 +94,7 @@ const routes: Routes = [
         }
     },
     {
-        path: 'invoices/:id',
+        path: 'print/payment/:id',
         component: InvoicePrintComponent,
         resolve: {
             data: InvoicePrintService

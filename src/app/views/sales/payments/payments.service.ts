@@ -70,12 +70,32 @@ export class PaymentsService implements Resolve<any>
         });
     }
 
-    create(payment: Payment) {
+    save(payment: Payment) {
         return this._httpClient.post(this.serviceURL + '/save', payment, this.httpOptions);
     }
 
     update(payment: Payment) {
         return this._httpClient.put(this.serviceURL + '/update', payment, this.httpOptions);
+    }
+
+    list() {
+        return this._httpClient.get(this.serviceURL + '/all', this.httpOptions);
+    }
+
+    get(id: number) {
+        return this._httpClient.get(this.serviceURL + '/'+id+'/get', this.httpOptions);
+    }
+
+    create(payment: Payment) {
+        return this._httpClient.post(this.serviceURL + '/create', payment, this.httpOptions);
+    }
+
+    validate(payment: Payment) {
+        return this._httpClient.post(this.serviceURL + '/validate', payment, this.httpOptions);
+    }
+
+    cancelPayment(payment: Payment) {
+        return this._httpClient.put(this.serviceURL + '/cancel', payment, this.httpOptions);
     }
 
 }

@@ -105,7 +105,7 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
             quantity: new FormControl('',Validators.required),
             unitPrice: new FormControl('',Validators.required),
             amount: new FormControl('',Validators.required),
-            reference: new FormControl(''),
+            // reference: new FormControl(''),
             total: new FormControl(this.order.production ? this.order.production.commercialProductions : 0),
         });
     }
@@ -124,7 +124,7 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
             quantity: new FormControl(this.order.quantity,Validators.required),
             unitPrice: new FormControl(this.order.unitPrice,Validators.required),
             amount: new FormControl(this.order.amount,Validators.required),
-            reference: new FormControl(this.order.reference),
+            // reference: new FormControl(this.order.reference),
             number: new FormControl(this.order.number),
             state: new FormControl(this.order.state),
             total: new FormControl(this.order.production ? this.order.production.commercialProductions : 0),

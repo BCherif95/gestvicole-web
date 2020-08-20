@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/internal/operators';
 import {INVOICE_STATE, METHOD_OF_PAYMENT} from '../../../data/enums/enums';
 import {InvoicesService} from './invoices.service';
 import {SalesPaymentFormDialogComponent} from '../payment-form/payment-form.component';
+import {Invoice} from '../../../data/models/invoice.model';
 
 @Component({
     selector     : 'sales-invoices',
@@ -23,7 +24,7 @@ export class InvoicesComponent implements OnInit
 {
     dialogRef: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['number','customer','order','invoiceDate','amount','methodOfPayment','state','buttons'];
+    displayedColumns = ['number','customer','order','invoiceDate','amount','stayToPay','methodOfPayment','state','buttons'];
 
     @ViewChild(MatPaginator)
     paginator: MatPaginator;
@@ -76,12 +77,12 @@ export class InvoicesComponent implements OnInit
             });
     }
 
-    issuePayment(invoice) {
+    issuePayment(action?: string, invoice?: Invoice) {
         this.dialogRef = this._matDialog.open(SalesPaymentFormDialogComponent, {
             panelClass: 'payment-form-dialog',
-            data      : {
+            data: {
                 invoice: invoice,
-                action: 'paid'
+                action: action
             }
         });
     }

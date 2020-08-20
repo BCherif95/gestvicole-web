@@ -5,6 +5,7 @@ import {fuseAnimations} from '@fuse/animations';
 import {ProjectUtils} from '../../../utils/project-utils';
 import {Invoice} from '../../../data/models/invoice.model';
 import {InvoicePrintService} from './invoice-print.service';
+import {Payment} from '../../../data/models/payment.model';
 
 @Component({
     selector: 'sales-invoice-print',
@@ -17,6 +18,7 @@ export class InvoicePrintComponent implements OnInit, OnDestroy {
 
     projectUtils = new ProjectUtils();
     invoice: Invoice;
+    payment: Payment;
     societyInfo = {
         name: 'DSN MALI',
         address: 'Hamdallaye ACI 2000',
@@ -54,8 +56,15 @@ export class InvoicePrintComponent implements OnInit, OnDestroy {
         this._invoicePrintService.onInvoiceChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(invoice => {
-                console.log(invoice);
                 this.invoice = new Invoice(invoice);
+            });
+
+        // Subscribe to update order on changes
+        this._invoicePrintService.onPaymentChanged
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(payment => {
+                this.payment = payment;
+
             });
 
     }

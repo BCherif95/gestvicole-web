@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatDialogRef} from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -10,6 +10,11 @@ import { FuseUtils } from '@fuse/utils';
 import { takeUntil } from 'rxjs/internal/operators';
 import {METHOD_OF_PAYMENT, PAYMENT_STATE} from '../../../data/enums/enums';
 import {PaymentsService} from './payments.service';
+import {SalesPaymentFormDialogComponent} from '../payment-form/payment-form.component';
+import {Payment} from '../../../data/models/payment.model';
+import { ConfirmDialogComponent } from 'app/views/confirm-dialog/confirm-dialog.component';
+import {ProjectUtils} from '../../../utils/project-utils';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector     : 'sales-payments',
@@ -20,9 +25,11 @@ import {PaymentsService} from './payments.service';
 })
 export class PaymentsComponent implements OnInit
 {
+    projectUtils = new ProjectUtils();
+    currentUser = this.projectUtils.getAppUser();
     dialogRef: any;
     dataSource: FilesDataSource | null;
-    displayedColumns = ['invoice','paymentDate','balanceBefore','amount','balanceAfter','methodOfPayment','state','buttons'];
+    displayedColumns = ['customer','invoice','netToPay','paymentDate','balanceBefore','amount','balanceAfter','methodOfPayment','createBy','state','validateBy','buttons'];
 
     @ViewChild(MatPaginator)
     paginator: MatPaginator;
@@ -30,17 +37,21 @@ export class PaymentsComponent implements OnInit
     @ViewChild(MatSort)
     sort: MatSort;
 
-    paymentstate = PAYMENT_STATE;
-    methodofpayment = METHOD_OF_PAYMENT;
+    paymentState = PAYMENT_STATE;
+    methodOfPaymentEnum = METHOD_OF_PAYMENT;
 
     @ViewChild('filter')
     filter: ElementRef;
+
+    confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
+
 
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
         private _paymentsService: PaymentsService,
+        private _toastService: ToastrService,
         private _matDialog: MatDialog
     )
     {
@@ -75,24 +86,41 @@ export class PaymentsComponent implements OnInit
             });
     }
 
-    /*newOrder() {
-        this.dialogRef = this._matDialog.open(SalesOrderFormDialogComponent, {
-            panelClass: 'order-form-dialog',
-            data      : {
-                action: 'new'
+    showPaymentDialog(action?: string, payment?: Payment) {
+        this.dialogRef = this._matDialog.open(SalesPaymentFormDialogComponent, {
+            panelClass: 'payment-form-dialog',
+            data: {
+                action: action,
+                payment: payment
             }
         });
     }
 
-    editOrder(order) {
-        this.dialogRef = this._matDialog.open(SalesOrderFormDialogComponent, {
-            panelClass: 'order-form-dialog',
-            data      : {
-                order: order,
-                action: 'edit'
-            }
+    cancelPayment(payment: Payment) {
+        this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
+            disableClose: false
         });
-    }*/
+
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Etes-vous sûre d\'annuler ce paiement ?';
+
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                payment.cancelBy = this.projectUtils.getAppUser();
+                payment.cancelDate = new Date();
+                this._paymentsService.cancelPayment(payment).subscribe(data => {
+                    if (data['status'] === 'OK') {
+                        this._toastService.success(data['message']);
+                        const payIndex = this._paymentsService.payments.indexOf(payment);
+                        this._paymentsService.payments.splice(payIndex, 1);
+                        this._paymentsService.onPaymentsChanged.next(this._paymentsService.payments);
+                    } else {
+                        this._toastService.error(data['message']);
+                    }
+                }, error => console.log(error));
+            }
+            this.confirmDialogRef = null;
+        });
+    }
 
 }
 

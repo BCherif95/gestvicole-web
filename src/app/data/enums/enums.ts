@@ -6,7 +6,7 @@ export enum INVOICE_STATE {
     CANCEL = "Annulée"
 }
 export enum PAYMENT_STATE {
-    WAITING = "En attente",
+    PENDING = "En attente",
     VALIDATE = "Payée"
 }
 export enum ORDER_STATE {

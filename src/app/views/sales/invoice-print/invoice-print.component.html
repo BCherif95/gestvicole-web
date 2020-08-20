@@ -1,6 +1,6 @@
 <div class="no-print" fxLayout="row" fxLayoutAlign="start start">
 
-    <button [routerLink]="'/views/sales/invoices'" class="mr-16" mat-icon-button>
+    <button style="color: #422874 !important;" [routerLink]="'/views/sales/payments'" class="mr-16" mat-icon-button>
         <mat-icon>arrow_back</mat-icon>
     </button>
 
@@ -39,13 +39,19 @@
                                                 <strong>
                                                     <span>Client : </span>
                                                 </strong>
-                                                <span>{{invoice.customer?.name}}</span>
+                                                <span>{{invoice?.customer?.name}}</span>
                                             </p>
                                             <p class="invoice-margin-space-4">
                                                 <strong>
                                                     <span>N° FACTURE : </span>
                                                 </strong>
-                                                <span>{{invoice.number}}</span>
+                                                <span>{{payment.number}}</span>
+                                            </p>
+                                            <p *ngIf="invoice.reference" class="invoice-margin-space-4">
+                                                <strong>
+                                                    <span>Référence : </span>
+                                                </strong>
+                                                <span>{{invoice?.reference}}</span>
                                             </p>
                                             <p class="invoice-margin-space-4">
                                                 <strong>
@@ -53,7 +59,7 @@
                                                 </strong>
                                                 <span>{{invoice.invoiceDate | date:'dd/MM/yyyy'}}</span>
                                             </p>
-                                            <p class="invoice-margin-space-4">
+                                           <!-- <p class="invoice-margin-space-4">
                                                 <strong>
                                                     <span>Montant de la facture : </span>
                                                 </strong>
@@ -65,7 +71,19 @@
                                                 </strong>
                                             </p>
                                             <p style="margin-top:0pt; margin-bottom:0pt; font-size:3pt;">
-                                                <strong><span>&nbsp;</span></strong></p>
+                                                <strong><span>&nbsp;</span></strong>
+                                            </p>-->
+                                            <p *ngIf="payment?.netToPay" class="invoice-margin-space-4">
+                                                <strong>
+                                                    <span>Net à payer : </span>
+                                                </strong>
+                                                <strong>
+                                                    <span>{{payment?.netToPay | number:'':'fr-FR'}} F CFA</span>
+                                                </strong>
+                                            </p>
+                                            <p style="margin-top:0pt; margin-bottom:0pt; font-size:3pt;">
+                                                <strong><span>&nbsp;</span></strong>
+                                            </p>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -83,7 +101,7 @@
                             <br/><br/>
 
                             <p class="invoice-margin-space-3">
-                                <strong><u><span>FACTURE Nº {{invoice.number}}</span></u></strong></p>
+                                <strong><u><span>FACTURE Nº {{payment.number}}</span></u></strong></p>
                             <table class="invoice-table" cellspacing="0" cellpadding="0">
                                 <tr class="table-header">
                                     <td class="table-row-data" style="width:8%;">
@@ -133,36 +151,31 @@
                                                 <span>{{invoice.amount | number:'':'fr-FR'}} F CFA</span>
                                             </strong>
                                         </p>
-                                        <br>
+                                        <br *ngIf="invoice.amountPaid">
+                                        <p *ngIf="invoice.amountPaid" class="invoice-margin-space-4">
+                                            <strong>
+                                                <span>Acomptes versés</span>
+                                                <span>{{payment.accountPaidBefore | number:'':'fr-FR'}}
+                                                    F CFA</span>
+                                            </strong>
+                                        </p>
+                                        <br/>
+                                        <p *ngIf="payment.netToPay" class="invoice-margin-space-4">
+                                            <strong>
+                                    <span>NET À PAYER ({{((payment.netToPay / invoice.amount) * 100).toFixed(0)}}
+                                        %)</span>
+                                                <span>{{payment.netToPay | number:'':'fr-FR'}} F CFA</span>
+                                            </strong>
+                                        </p><br *ngIf="payment.netToPay"/>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <!--<p *ngIf="devis.showReglementMode"
-                               style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;">
-                                <strong>
-                                    <span>Mode de Règlement :</span>
-                                </strong>
+                            <p style="margin-top:0pt; margin-bottom:0pt; font-size:8pt;"><strong><span
+                            >Mode de Règlement :</span></strong></p>
+                            <p class="invoice-margin-space-1"><strong><span
+                            >Par virement ou chèque au nom de la société TRANS ROUTE SA</span></strong>
                             </p>
-                            <p *ngIf="devis.showReglementMode" class="invoice-margin-space-1">
-                                <strong>
-                        <span>
-                          <li style="margin-left: 13pt; margin-bottom: 8pt; margin-top: 8pt">
-                              40% à la commande : {{dsnUtils.getAmountByPercentage(devis.total, 40).toFixed(0) | number:'':'fr-FR'}}
-                              F CFA
-                          </li>
-                          <li style="margin-left: 13pt; margin-bottom: 8pt">
-                              60% à la livraison : {{dsnUtils.getAmountByPercentage(devis.total, 60).toFixed(0) | number:'':'fr-FR'}}
-                              F CFA
-                          </li>
-                        </span>
-                                </strong>
-                            </p>
-                            <p *ngIf="devis.showReglementMode" class="invoice-margin-space-1">
-                                <strong>
-                                    <span style="margin-left: 13pt;">Par virement ou chèque au nom de la société DSN MALI</span>
-                                </strong>
-                            </p>-->
                             <p class="invoice-margin-space-1">
                                 <br/>
                                 <br/><span>&nbsp;</span>
