@@ -1,4 +1,5 @@
 import {FuseNavigation} from '@fuse/types';
+import {NavItemUtils} from '../utils/nav-item-utils';
 
 // export const navigation: FuseNavigation[] = [
 //
@@ -57,7 +58,7 @@ import {FuseNavigation} from '@fuse/types';
 //     }
 // ];
 
-export const adminNavigation: FuseNavigation[] = [
+/*export const adminNavigation: FuseNavigation[] = [
 
     {
         id: 'applications',
@@ -234,4 +235,6 @@ export const techNavigation: FuseNavigation[] = [
 
         ]
     }
-];
+];*/
+
+export const navigation: FuseNavigation[] = new NavItemUtils().getNavigations();

@@ -14,6 +14,7 @@ import {Location} from '@angular/common';
 import {Subject} from 'rxjs';
 import {ChargeDashBody} from '../../../utils/dashboard/charge-dash-body';
 import {SearchBody} from '../../../utils/search-body';
+import {RoleUtils} from '../../../utils/role-utils';
 
 @Component({
     selector: 'main-dashboard',
@@ -23,6 +24,9 @@ import {SearchBody} from '../../../utils/search-body';
     animations: fuseAnimations
 })
 export class MainDashboardComponent implements OnInit {
+
+    roleUtils = new RoleUtils();
+
     prodDashBody: ProdDashBody;
     saleDashBody: SaleDashBody;
     chargeDashBody: ChargeDashBody;

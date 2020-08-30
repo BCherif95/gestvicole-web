@@ -74,6 +74,10 @@ export class InvoicesService implements Resolve<any>
         return this._httpClient.get(this.serviceURL+ '/all',this.httpOptions);
     }
 
+    validateAnInvoice(invoice: Invoice) {
+        return this._httpClient.put(this.serviceURL + '/an-validate', invoice, this.httpOptions);
+    }
+
     getById(id: number) {
         return this._httpClient.get(this.serviceURL + '/' + id, this.httpOptions);
     }

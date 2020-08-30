@@ -72,7 +72,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
         ),
     ],
     providers: [
-        {provide: LOCALE_ID, useValue: 'fr-FR'}
+        {provide: LOCALE_ID, useValue: 'fr-FR'},
+        {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
     bootstrap   : [
         AppComponent

@@ -29,6 +29,9 @@ import {RolesComponent} from './roles/roles.component';
 import {RolesService} from './roles/roles.service';
 import {UserService} from './user/user.service';
 import {UserComponent} from './user/user.component';
+import {AdminCrudRoleComponent} from './crud-role/crud-role.component';
+import {AdminCrudRoleService} from './crud-role/crud-role.service';
+import {RoleMenuGuard, RoleUpdateGuard, UserCreateGuard, UserMenuGuard, UserUpdateGuard} from '../../shared/role.guard';
 
 
 const routes: Routes = [
@@ -37,36 +40,56 @@ const routes: Routes = [
         component: UsersComponent,
         resolve: {
             data: UsersService
-        }
+        },
+        canActivate: [UserMenuGuard]
     },
     {
         path: 'users/:id',
         component: UserComponent,
         resolve: {
             data: UserService
-        }
+        },
+        canActivate: [UserCreateGuard]
     },
     {
         path: 'users/:id/:name',
         component: UserComponent,
         resolve: {
             data: UserService
-        }
+        },
+        canActivate: [UserUpdateGuard]
     },
     {
         path: 'roles',
         component: RolesComponent,
         resolve: {
             data: RolesService
+        },
+        canActivate: [RoleMenuGuard]
+    },
+    {
+        path: 'roles/by-name/:name',
+        component: AdminCrudRoleComponent,
+        resolve: {
+            data: AdminCrudRoleService
         }
     },
+    {
+        path: 'roles/:name',
+        component: AdminCrudRoleComponent,
+        resolve: {
+            data: AdminCrudRoleService
+        },
+        canActivate: [RoleUpdateGuard]
+    }
 ];
 
 @NgModule({
     declarations: [
         UsersComponent,
         UserComponent,
-        RolesComponent
+        RolesComponent,
+        AdminCrudRoleComponent
     ],
     imports: [
         RouterModule.forChild(routes),

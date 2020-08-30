@@ -31,6 +31,7 @@ import {ProductionComponent} from './production/production.component';
 import {ProductionService} from './production/production.service';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 import {MatTableExporterModule} from 'mat-table-exporter';
+import {BuildingCreateGuard, BuildingMenuGuard, BuildingUpdateGuard, ProductionCreateGuard, ProductionMenuGuard, ProductionUpdateGuard} from '../../shared/role.guard';
 
 const options: Partial<IConfig> = {
     validation: false
@@ -43,42 +44,48 @@ const routes: Routes = [
         component: ViewProductionBuildingsComponent,
         resolve  : {
             data: ViewProductionBuildingsService
-        }
+        },
+        canActivate: [BuildingMenuGuard]
     },
     {
         path     : 'buildings/:id',
         component: ViewProductionBuildingComponent,
         resolve  : {
             data: ViewProductionBuildingService
-        }
+        },
+        canActivate: [BuildingCreateGuard]
     },
     {
         path     : 'buildings/:id/:name',
         component: ViewProductionBuildingComponent,
         resolve  : {
             data: ViewProductionBuildingService
-        }
+        },
+        canActivate: [BuildingUpdateGuard]
     },
     {
         path     : 'productions',
         component: ProductionsComponent,
         resolve  : {
             data: ProductionsService
-        }
+        },
+        canActivate: [ProductionMenuGuard]
     },
     {
         path     : 'productions/:id',
         component: ProductionComponent,
         resolve  : {
             data: ProductionService
-        }
+        },
+        canActivate: [ProductionCreateGuard]
     },
     {
         path     : 'productions/:id/:name',
         component: ProductionComponent,
         resolve  : {
             data: ProductionService
-        }
+        },
+        canActivate: [ProductionUpdateGuard]
     }
 ];
 

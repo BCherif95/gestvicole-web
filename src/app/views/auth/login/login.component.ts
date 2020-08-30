@@ -9,6 +9,8 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {environment} from '../../../../environments/environment';
 import {ProjectUtils} from '../../../utils/project-utils';
+import {FuseNavigationService} from '../../../../@fuse/components/navigation/navigation.service';
+import {NavItemUtils} from '../../../utils/nav-item-utils';
 
 
 @Component({
@@ -31,6 +33,8 @@ export class LoginComponent implements OnInit
      * @param _router
      * @param _authService
      * @param _toastService
+     * @param projectUtilsService
+     * @param _fuseNavigationService
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
@@ -38,7 +42,8 @@ export class LoginComponent implements OnInit
         private _router: Router,
         private _authService: AuthService,
         private _toastService: ToastrService,
-        private projectUtilsService: ProjectUtils
+        private projectUtilsService: ProjectUtils,
+        private _fuseNavigationService: FuseNavigationService,
     )
     {
         // Configure the layout
@@ -95,13 +100,21 @@ export class LoginComponent implements OnInit
                 localStorage.setItem('app-token', btoa(JSON.stringify(ret['response'])));
                 localStorage.setItem('isLoggedin', 'true');
 
-                const currentUser = this.projectUtilsService.getAppUser();
+                /*const currentUser = this.projectUtilsService.getAppUser();
                 const role = currentUser && currentUser.roles && currentUser.roles.length > 0 ? currentUser.roles[0] : null;
                 const adminDefaultRoute = '/views/dashboards/main';
                 const techDefaultRoute = '/views/view-production/productions';
                 const isAdmin = role && role.name && role.name.toUpperCase() === 'ADMIN';
 
-                this._router.navigate([isAdmin ? adminDefaultRoute : techDefaultRoute]);
+                this._router.navigate([isAdmin ? adminDefaultRoute : techDefaultRoute]);*/
+
+                // Register the navigation to the service
+                this._fuseNavigationService.register('main', new NavItemUtils().getNavigations());
+
+                // Set the main navigation as our current navigation
+                this._fuseNavigationService.setCurrentNavigation('main');
+
+                this._router.navigate(['/views/dashboards/main']);
             } else {
                 this._toastService.error(ret['message']);
                 // console.log(ret['message']);

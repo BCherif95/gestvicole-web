@@ -11,7 +11,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 
-import {adminNavigation, techNavigation} from 'app/navigation/navigation';
+import {navigation} from 'app/navigation/navigation';
 import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
 import {ProjectUtils} from './utils/project-utils';
@@ -40,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy
      * @param {FuseTranslationLoaderService} _fuseTranslationLoaderService
      * @param {Platform} _platform
      * @param {TranslateService} _translateService
+     * @param projectUtilsService
      */
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -53,10 +54,12 @@ export class AppComponent implements OnInit, OnDestroy
         private projectUtilsService: ProjectUtils,
     )
     {
-        const currentUser = this.projectUtilsService.getAppUser();
-        const role = currentUser && currentUser.roles && currentUser.roles.length > 0 ? currentUser.roles[0] : null;
         // Get default navigation
-        this.navigation =  adminNavigation;
+        this.navigation = navigation;
+
+        /*const currentUser = this.projectUtilsService.getAppUser();
+        const role = currentUser && currentUser.roles && currentUser.roles.length > 0 ? currentUser.roles[0] : null;
+        this.navigation =  adminNavigation;*/
 
         // Register the navigation to the service
         this._fuseNavigationService.register('main', this.navigation);

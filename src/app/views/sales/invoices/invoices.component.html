@@ -127,15 +127,13 @@
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
-                                <!--<button
-                                    *ngIf="invoice.state === 'OPEN' && invoice.amountPaid === 0"
-                                    mat-menu-item
-                                    matTooltip="modifier">
-                                    <mat-icon>edit</mat-icon>
-                                    <span>Modifier</span>
-                                </button>-->
+                                <button *ngIf="invoice.state === 'OPEN'"
+                                        mat-menu-item (click)="validation(invoice)">
+                                    <mat-icon>check</mat-icon>
+                                    <span>Valider</span>
+                                </button>
                                 <button
-                                    *ngIf="invoice.state === 'OPEN' || invoice.state ==='IN_PAYMENT'"
+                                    *ngIf="invoice.state === 'VALIDATE' || invoice.state === 'IN_PAYMENT'"
                                     mat-menu-item
                                     (click)="issuePayment('issue', invoice)"
                                     matTooltip="paiement">

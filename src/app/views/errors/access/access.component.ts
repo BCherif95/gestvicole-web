@@ -33,6 +33,6 @@ export class AccessErrorComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        document.title = 'DSN ERP | View Error';
+        document.title = 'TRANS ROUTE | View Error';
     }
 }

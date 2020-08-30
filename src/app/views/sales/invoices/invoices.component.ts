@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import {MatDialog, MatDialogRef, MatPaginator, MatSort} from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import {INVOICE_STATE, METHOD_OF_PAYMENT} from '../../../data/enums/enums';
 import {InvoicesService} from './invoices.service';
 import {SalesPaymentFormDialogComponent} from '../payment-form/payment-form.component';
 import {Invoice} from '../../../data/models/invoice.model';
+import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector     : 'sales-invoices',
@@ -38,11 +40,14 @@ export class InvoicesComponent implements OnInit
     @ViewChild('filter')
     filter: ElementRef;
 
+    confirmDialogRef: MatDialogRef<ConfirmDialogComponent>;
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
         private _invoicesService: InvoicesService,
+        private _toastrService: ToastrService,
         private _matDialog: MatDialog
     )
     {
@@ -75,6 +80,29 @@ export class InvoicesComponent implements OnInit
 
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
+    }
+
+    validation(invoice: Invoice) {
+        this.confirmDialogRef = this._matDialog.open(ConfirmDialogComponent, {
+            disableClose: false
+        });
+
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Etes-vous sûre de valider la facture ' + invoice.number + '?';
+
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this._invoicesService.validateAnInvoice(invoice).subscribe(data => {
+                    if (data['status'] === 'OK') {
+                        this._toastrService.success(data['message']);
+                        const invoiceIndex = this._invoicesService.invoices.indexOf(invoice);
+                        this._invoicesService.invoices.splice(invoiceIndex, 1, data['response']);
+                        this._invoicesService.onInvoicesChanged.next(this._invoicesService.invoices);
+                    } else {
+                        this._toastrService.error(data['message']);
+                    }
+                }, error => console.log(error));
+            }
+        });
     }
 
     issuePayment(action?: string, invoice?: Invoice) {

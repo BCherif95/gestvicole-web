@@ -30,6 +30,7 @@ export class FuseNavVerticalGroupComponent implements OnInit, OnDestroy
      *
      * @param {ChangeDetectorRef} _changeDetectorRef
      * @param {FuseNavigationService} _fuseNavigationService
+     * @param projectUtilsService
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
@@ -73,15 +74,15 @@ export class FuseNavVerticalGroupComponent implements OnInit, OnDestroy
         this._unsubscribeAll.complete();
     }
 
-    canActivate(item: FuseNavigationItem) {
-        const user = this.projectUtilsService.getAppUser();
-        const role = user && user.roles && user.roles.length > 0 ? user.roles[0] : null;
-        console.log(
-            'role && role.name && role.name.toUpperCase() === \'ADMIN\' || item.id === \'productions\'',
-            role && role.name && role.name.toUpperCase() === 'ADMIN' || item.id === 'productions',
-            item.id,
-            role
-        );
-        return role && role.name && role.name.toUpperCase() === 'ADMIN' || item.id === 'productions';
-    }
+    // canActivate(item: FuseNavigationItem) {
+    //     const user = this.projectUtilsService.getAppUser();
+    //     const role = user && user.roles && user.roles.length > 0 ? user.roles[0] : null;
+    //     console.log(
+    //         'role && role.name && role.name.toUpperCase() === \'ADMIN\' || item.id === \'productions\'',
+    //         role && role.name && role.name.toUpperCase() === 'ADMIN' || item.id === 'productions',
+    //         item.id,
+    //         role
+    //     );
+    //     return role && role.name && role.name.toUpperCase() === 'ADMIN' || item.id === 'productions';
+    // }
 }

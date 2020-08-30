@@ -49,16 +49,6 @@
                 </mat-form-field>
             </div>
 
-            <div fxLayout="row" fxLayoutAlign="start start">
-                <mat-form-field appearance="outline" fxFlex>
-                    <mat-label>Mode de reglement</mat-label>
-                    <mat-select formControlName="methodOfPayment" required>
-                        <mat-option *ngFor="let method of methodes"
-                                    [value]="method">{{methodOfPaymentEnum[method]}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
             <div fxLayout="row" fxLayoutAlign="start center">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Quantité</mat-label>
@@ -89,6 +79,16 @@
                            mask="separator"
                            readonly
                            matInput>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Mode de reglement</mat-label>
+                    <mat-select formControlName="methodOfPayment" required>
+                        <mat-option *ngFor="let method of methodes"
+                                    [value]="method">{{methodOfPaymentEnum[method]}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 

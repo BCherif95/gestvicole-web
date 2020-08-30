@@ -3,29 +3,29 @@
   <component name="ChangeListManager">
     <list default="true" id="cc1956ce-bfd2-497b-ae36-8f404b1a7f24" name="Default" comment="apply some changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/data/enums/enums.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/data/enums/enums.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/data/models/payment.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/data/models/payment.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/charge-form/charge-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/charge-form/charge-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/charge-form/charge-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/charge-form/charge-form.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/customer-form/customer-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/customer-form/customer-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/collapsable/collapsable.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/collapsable/collapsable.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/collapsable/collapsable.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/collapsable/collapsable.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/group/group.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/group/group.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/group/group.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/group/group.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/item/item.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/item/item.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/item/item.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/@fuse/components/navigation/vertical/item/item.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/data/models/privilege.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/data/models/privilege.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/navigation/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/navigation/navigation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/admin/admin.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/admin/admin.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/auth/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/auth/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/dashboards/main/main.dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/dashboards/main/main.dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/dashboards/main/main.dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/dashboards/main/main.dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/errors/access/access.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/errors/access/access.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoice-form/invoice-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoice-form/invoice-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoice-form/invoice-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoice-form/invoice-form.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoice-form/invoice-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoice-form/invoice-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoice-print/invoice-print.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoice-print/invoice-print.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoice-print/invoice-print.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoice-print/invoice-print.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoice-print/invoice-print.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoice-print/invoice-print.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoices/invoices.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoices/invoices.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoices/invoices.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoices/invoices.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/payment-form/payment-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/payment-form/payment-form.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/payment-form/payment-form.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/payment-form/payment-form.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/payment-form/payment-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/payment-form/payment-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/payments/payments.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/payments/payments.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/payments/payments.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/payments/payments.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/payments/payments.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/payments/payments.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/sales/invoices/invoices.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/invoices/invoices.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/sales/orders/orders.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/orders/orders.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/sales/sales.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/sales.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/stock-management/stock-management.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/stock-management/stock-management.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/view-production/view-production.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/view-production/view-production.module.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +217,13 @@
       <workItem from="1597012886227" duration="268000" />
       <workItem from="1597022829461" duration="33000" />
       <workItem from="1597022890262" duration="64000" />
-      <workItem from="1597832049661" duration="17347000" />
+      <workItem from="1597832049661" duration="17835000" />
+      <workItem from="1598099720688" duration="1376000" />
+      <workItem from="1598113539403" duration="367000" />
+      <workItem from="1598114501203" duration="15756000" />
+      <workItem from="1598306443364" duration="4528000" />
+      <workItem from="1598650693807" duration="8611000" />
+      <workItem from="1598746700481" duration="404000" />
     </task>
     <task id="LOCAL-00001" summary="apply some changes">
       <created>1587511718795</created>
@@ -253,6 +259,10 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="491" y="313" key="VCS.ChangelistChooser/0.0.1280.800@0.0.1280.800" timestamp="1595714333098" />
+    <state x="305" y="62" width="670" height="676" key="search.everywhere.popup" timestamp="1598660399481">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="305" y="62" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1598660399481" />
   </component>
   <component name="masterDetails">
     <states>
