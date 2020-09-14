@@ -40,32 +40,28 @@ const routes: Routes = [
         component: UsersComponent,
         resolve: {
             data: UsersService
-        },
-        canActivate: [UserMenuGuard]
+        }
     },
     {
         path: 'users/:id',
         component: UserComponent,
         resolve: {
             data: UserService
-        },
-        canActivate: [UserCreateGuard]
+        }
     },
     {
         path: 'users/:id/:name',
         component: UserComponent,
         resolve: {
             data: UserService
-        },
-        canActivate: [UserUpdateGuard]
+        }
     },
     {
         path: 'roles',
         component: RolesComponent,
         resolve: {
             data: RolesService
-        },
-        canActivate: [RoleMenuGuard]
+        }
     },
     {
         path: 'roles/by-name/:name',
@@ -79,8 +75,7 @@ const routes: Routes = [
         component: AdminCrudRoleComponent,
         resolve: {
             data: AdminCrudRoleService
-        },
-        canActivate: [RoleUpdateGuard]
+        }
     }
 ];
 

@@ -44,48 +44,42 @@ const routes: Routes = [
         component: ViewProductionBuildingsComponent,
         resolve  : {
             data: ViewProductionBuildingsService
-        },
-        canActivate: [BuildingMenuGuard]
+        }
     },
     {
         path     : 'buildings/:id',
         component: ViewProductionBuildingComponent,
         resolve  : {
             data: ViewProductionBuildingService
-        },
-        canActivate: [BuildingCreateGuard]
+        }
     },
     {
         path     : 'buildings/:id/:name',
         component: ViewProductionBuildingComponent,
         resolve  : {
             data: ViewProductionBuildingService
-        },
-        canActivate: [BuildingUpdateGuard]
+        }
     },
     {
         path     : 'productions',
         component: ProductionsComponent,
         resolve  : {
             data: ProductionsService
-        },
-        canActivate: [ProductionMenuGuard]
+        }
     },
     {
         path     : 'productions/:id',
         component: ProductionComponent,
         resolve  : {
             data: ProductionService
-        },
-        canActivate: [ProductionCreateGuard]
+        }
     },
     {
         path     : 'productions/:id/:name',
         component: ProductionComponent,
         resolve  : {
             data: ProductionService
-        },
-        canActivate: [ProductionUpdateGuard]
+        }
     }
 ];
 

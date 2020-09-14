@@ -57,40 +57,35 @@ const routes: Routes = [
         component: CustomersComponent,
         resolve  : {
             data: CustomersService
-        },
-        canActivate: [CustomerMenuGuard]
+        }
     },
     {
         path     : 'invoices',
         component: InvoicesComponent,
         resolve  : {
             data: InvoicesService
-        },
-        canActivate: [InvoiceMenuGuard]
+        }
     },
     {
         path     : 'orders',
         component: OrdersComponent,
         resolve  : {
             data: OrdersService
-        },
-        canActivate: [OrderMenuGuard]
+        }
     },
     {
         path     : 'payments',
         component: PaymentsComponent,
         resolve  : {
             data: PaymentsService
-        },
-        canActivate: [PaymentMenuGuard]
+        }
     },
     {
         path     : 'charges',
         component: ChargesComponent,
         resolve  : {
             data: ChargesService
-        },
-        canActivate: [ChargeMenuGuard]
+        }
     },
     {
         path: 'charges/infos/:id',
@@ -104,8 +99,7 @@ const routes: Routes = [
         component: InvoicePrintComponent,
         resolve: {
             data: InvoicePrintService
-        },
-        canActivate: [InvoicePrintGuard]
+        }
     }
 
 ];

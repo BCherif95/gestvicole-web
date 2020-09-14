@@ -58,7 +58,7 @@ import {NavItemUtils} from '../utils/nav-item-utils';
 //     }
 // ];
 
-/*export const adminNavigation: FuseNavigation[] = [
+export const navigation: FuseNavigation[] = [
 
     {
         id: 'applications',
@@ -216,25 +216,25 @@ import {NavItemUtils} from '../utils/nav-item-utils';
     }
 ];
 
-export const techNavigation: FuseNavigation[] = [
+// export const techNavigation: FuseNavigation[] = [
+//
+//     {
+//         id: 'applications',
+//         title: 'Applications',
+//         translate: 'NAV.APPLICATIONS',
+//         type: 'group',
+//         icon: 'apps',
+//         children: [
+//             {
+//                 id: 'productions',
+//                 title: 'Productions',
+//                 type: 'item',
+//                 icon: 'shopping_basket',
+//                 url: '/views/view-production/productions'
+//             },
+//
+//         ]
+//     }
+// ];
 
-    {
-        id: 'applications',
-        title: 'Applications',
-        translate: 'NAV.APPLICATIONS',
-        type: 'group',
-        icon: 'apps',
-        children: [
-            {
-                id: 'productions',
-                title: 'Productions',
-                type: 'item',
-                icon: 'shopping_basket',
-                url: '/views/view-production/productions'
-            },
-
-        ]
-    }
-];*/
-
-export const navigation: FuseNavigation[] = new NavItemUtils().getNavigations();
+// export const navigation: FuseNavigation[] = new NavItemUtils().getNavigations();

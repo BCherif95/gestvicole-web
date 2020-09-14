@@ -7,9 +7,7 @@ import * as _ from 'lodash';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
-/*
 import { navigation } from 'app/navigation/navigation';
-*/
 import {ProjectUtils} from '../../../utils/project-utils';
 import {User} from '../../../data/models/user.model';
 import {AuthBody} from '../../../utils/auth-body';
@@ -94,9 +92,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
             }
         ];
 
-/*
         this.navigation = navigation;
-*/
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();

@@ -43,40 +43,35 @@ const routes: Routes = [
         component: CategoriesComponent,
         resolve  : {
             data: CategoriesService
-        },
-        canActivate: [CategoryMenuGuard]
+        }
     },
     {
         path     : 'products',
         component: ProductsComponent,
         resolve  : {
             data: ProductsService
-        },
-        canActivate: [ProductionMenuGuard]
+        }
     },
     {
         path     : 'stocks',
         component: StocksComponent,
         resolve  : {
             data: StocksService
-        },
-        canActivate: [StockMenuGuard]
+        }
     },
     {
         path     : 'stock-entries',
         component: StockEntriesComponent,
         resolve  : {
             data: StockEntriesService
-        },
-        canActivate: [StockEntryMenuGuard]
+        }
     },
     {
         path     : 'stock-outs',
         component: StockOutsComponent,
         resolve  : {
             data: StockOutsService
-        },
-        canActivate: [StockOutMenuGuard]
+        }
     }
 ];
 
