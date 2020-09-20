@@ -155,6 +155,22 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
         }
     }
 
+    create(): void {
+        this.role = this.roleForm.getRawValue();
+        this.role.privileges = this.selectedPrivilegeValues;
+        this._adminCrudRoleService.create(this.role).subscribe((response: any) => {
+            if (response['status'] == 'OK') {
+                this._adminCrudRoleService.onRoleChanged.next(this.role);
+                this._toastrService.success(response['message'], 'Rôle');
+                this._router.navigateByUrl('/views/admin/roles');
+            } else {
+                this._toastrService.error(response['message']);
+            }
+        }, e => {
+            this._toastrService.error(environment.errorMessage);
+        });
+    }
+
     update(): void {
         this.role = this.roleForm.getRawValue();
         this.role.privileges = this.selectedPrivilegeValues;

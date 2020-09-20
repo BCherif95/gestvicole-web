@@ -81,6 +81,10 @@ export class AdminCrudRoleService implements Resolve<any>
         });
     }
 
+    create(role: Role) {
+        return this._httpClient.post(this.serviceURL + '/save',role, this.httpOptions);
+    }
+
     update(role: Role) {
         return this._httpClient.put(this.serviceURL + '/update',role, this.httpOptions);
     }

@@ -29,7 +29,7 @@
             </div>
             <!-- / APP TITLE -->
 
-            <button mat-raised-button
+            <button mat-raised-button (click)="create()"
                     class="save-product-button"
                     [disabled]="roleForm.invalid"
                     *ngIf="pageType ==='new'">
@@ -60,7 +60,7 @@
                             <input matInput placeholder="Nom du rôle"
                                    name="name"
                                    formControlName="name"
-                                   required readonly>
+                                   required>
                         </mat-form-field>
 
                         <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">

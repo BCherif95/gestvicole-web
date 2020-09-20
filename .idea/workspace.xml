@@ -3,16 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="cc1956ce-bfd2-497b-ae36-8f404b1a7f24" name="Default" comment="apply some changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout/components/toolbar/toolbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout/components/toolbar/toolbar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/navigation/navigation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/navigation/navigation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/admin/admin.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/admin/admin.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/dashboards/main/main.dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/dashboards/main/main.dashboard.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/sales.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/sales.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/stock-management/stock-management.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/stock-management/stock-management.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/view-production/view-production.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/view-production/view-production.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/images/logos/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/dsn-invoice-ligne.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/logo-empty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/admin/crud-role/crud-role.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/admin/crud-role/crud-role.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/admin/crud-role/crud-role.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/admin/crud-role/crud-role.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/admin/crud-role/crud-role.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/admin/crud-role/crud-role.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/views/admin/roles/roles.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/admin/roles/roles.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,6 +209,9 @@
       <workItem from="1598792376621" duration="595000" />
       <workItem from="1599954237472" duration="654000" />
       <workItem from="1600026927198" duration="1835000" />
+      <workItem from="1600102840462" duration="611000" />
+      <workItem from="1600103617520" duration="20000" />
+      <workItem from="1600563470543" duration="1050000" />
     </task>
     <task id="LOCAL-00001" summary="apply some changes">
       <created>1587511718795</created>
