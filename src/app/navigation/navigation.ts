@@ -167,7 +167,7 @@ export const navigation: FuseNavigation[] = [
                         title: 'Entrées',
                         type: 'item',
                         icon: 'shopping_basket',
-                        role: 'stock-entry',
+                        role: 'stock_entry',
                         url: '/tr/stock-management/stock-entries',
                         children: []
                     },
@@ -176,7 +176,7 @@ export const navigation: FuseNavigation[] = [
                         title: 'Sorties',
                         type: 'item',
                         icon: 'shopping_basket',
-                        role: 'stock-out',
+                        role: 'stock_out',
                         url: '/tr/stock-management/stock-outs',
                         children: []
                     },

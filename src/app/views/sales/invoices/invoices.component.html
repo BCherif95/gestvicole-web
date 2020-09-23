@@ -122,18 +122,18 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let invoice">
                         <div fxFlex="row" fxLayoutAlign="end center">
-                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
+                            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
                                 <mat-icon class="secondary-text">more_vert</mat-icon>
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
-                                <button *ngIf="invoice.state === 'OPEN'"
+                                <button *ngIf="invoice.state === 'OPEN' && has('validate')"
                                         mat-menu-item (click)="validation(invoice)">
                                     <mat-icon>check</mat-icon>
                                     <span>Valider</span>
                                 </button>
                                 <button
-                                    *ngIf="invoice.state === 'VALIDATE' || invoice.state === 'IN_PAYMENT'"
+                                    *ngIf="(invoice.state === 'VALIDATE' || invoice.state === 'IN_PAYMENT') && has('emit')"
                                     mat-menu-item
                                     (click)="issuePayment('issue', invoice)"
                                     matTooltip="paiement">

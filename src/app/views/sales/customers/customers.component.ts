@@ -12,6 +12,7 @@ import {CustomersService} from './customers.service';
 import {SalesCustomerFormDialogComponent} from '../customer-form/customer-form.component';
 import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
 import {ToastrService} from 'ngx-toastr';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'sales-customers',
@@ -43,7 +44,8 @@ export class CustomersComponent implements OnInit
     constructor(
         private _customersService: CustomersService,
         private _toastService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the private defaults
@@ -119,6 +121,9 @@ export class CustomersComponent implements OnInit
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('customer', scope);
+    }
 }
 
 

@@ -71,7 +71,7 @@ export class UsersComponent implements OnInit
             });
     }
 
-    has(scope: string) {
+    has(scope: string): boolean {
         return this.roleHelpers.hasRole('user', scope);
     }
 }

@@ -76,14 +76,14 @@ const routes: Routes = [
         }
     },
     {
-        path: 'roles/:name',
+        path: 'roles/by-name/:name',
         component: AdminCrudRoleComponent,
         resolve: {
             data: AdminCrudRoleService
         }
     },
     {
-        path: 'roles/by-name/:name',
+        path: 'roles/:name',
         component: AdminCrudRoleComponent,
         resolve: {
             data: AdminCrudRoleService

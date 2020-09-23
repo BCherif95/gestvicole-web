@@ -34,7 +34,7 @@
             <!-- / SEARCH -->
 
             <!-- ADD BUTTON -->
-            <button mat-fab class="accent" id="add-contact-button"
+            <button *ngIf="has('create')" mat-fab class="accent" id="add-contact-button"
                     (click)="newOrder()"
                     matTooltip="Ajouter une commande"
                     [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
@@ -121,7 +121,7 @@
 
                             <mat-menu #moreMenu="matMenu">
                                 <button
-                                    *ngIf="order.state === 'WAITING'"
+                                    *ngIf="order.state === 'WAITING' && has('update')"
                                     mat-menu-item
                                     (click)="editOrder(order)"
                                     matTooltip="modifier">
@@ -129,7 +129,7 @@
                                     <span>Modifier</span>
                                 </button>
                                 <button
-                                    *ngIf="order.state === 'WAITING'"
+                                    *ngIf="order.state === 'WAITING' && has('convert')"
                                     mat-menu-item
                                     (click)="createInvoice(order)"
                                     matTooltip="facturer">

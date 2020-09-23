@@ -13,7 +13,7 @@
             <!-- APP TITLE -->
             <div fxLayout="row" fxLayoutAlign="start center">
 
-                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/tr/production/buildings'">
+                <button *ngIf="has('list')" mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/tr/production/buildings'">
                     <mat-icon>arrow_back</mat-icon>
                 </button>
 
@@ -35,7 +35,7 @@
             <button mat-raised-button
                     (click)="save()"
                     class="save-product-button"
-                    [disabled]="buildingForm.invalid || !isLinesCorrect()"
+                    [disabled]="buildingForm.invalid || !isLinesCorrect() || !has('create')"
                     *ngIf="pageType ==='new'">
                 <span>Enregistrer</span>
             </button>
@@ -43,7 +43,7 @@
             <button mat-raised-button
                     (click)="save()"
                     class="save-product-button"
-                    [disabled]="buildingForm.invalid || !isLinesCorrect()"
+                    [disabled]="buildingForm.invalid || !isLinesCorrect() || !has('update')"
                     *ngIf="pageType ==='edit'">
                 <span>Modifier</span>
             </button>

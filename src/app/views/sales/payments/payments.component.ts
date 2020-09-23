@@ -15,6 +15,7 @@ import {Payment} from '../../../data/models/payment.model';
 import { ConfirmDialogComponent } from 'app/views/confirm-dialog/confirm-dialog.component';
 import {ProjectUtils} from '../../../utils/project-utils';
 import {ToastrService} from 'ngx-toastr';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'sales-payments',
@@ -52,7 +53,8 @@ export class PaymentsComponent implements OnInit
     constructor(
         private _paymentsService: PaymentsService,
         private _toastService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the private defaults
@@ -122,6 +124,9 @@ export class PaymentsComponent implements OnInit
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('payment', scope);
+    }
 }
 
 export class FilesDataSource extends DataSource<any>

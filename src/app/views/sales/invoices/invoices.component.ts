@@ -14,6 +14,7 @@ import {SalesPaymentFormDialogComponent} from '../payment-form/payment-form.comp
 import {Invoice} from '../../../data/models/invoice.model';
 import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
 import {ToastrService} from 'ngx-toastr';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'sales-invoices',
@@ -48,7 +49,8 @@ export class InvoicesComponent implements OnInit
     constructor(
         private _invoicesService: InvoicesService,
         private _toastrService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the private defaults
@@ -115,6 +117,9 @@ export class InvoicesComponent implements OnInit
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('invoice', scope);
+    }
 }
 
 export class FilesDataSource extends DataSource<any>

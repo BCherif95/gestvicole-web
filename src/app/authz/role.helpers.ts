@@ -25,6 +25,9 @@ export class RoleHelpers {
     }
 
     async first(defaultRole?: string): Promise<string> {
+        if (!defaultRole) {
+            defaultRole = 'dashboard';
+        }
         const temp = this.roleDatasource.roles$.getValue();
         if (!temp || temp.length === 0) {
             await this.roleDatasource.load(this.getId().toString());

@@ -81,11 +81,19 @@
                 </ng-container>
 
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-                <mat-row *matRowDef="let user; columns: displayedColumns;"
-                         class="user"
-                         [routerLink]="has('update') ? '/tr/admin/users/'+user.id+'/'+user.firstname : false"
-                         matRipple>
-                </mat-row>
+                <ng-container *ngIf="has('update'); else not">
+                    <mat-row *matRowDef="let user; columns: displayedColumns;"
+                             class="user"
+                             [routerLink]="'/tr/admin/users/'+user.id+'/'+user.firstname"
+                             matRipple>
+                    </mat-row>
+                </ng-container>
+
+                <ng-template #not>
+                    <mat-row *matRowDef="let user; columns: displayedColumns;"
+                             class="user" matRipple>
+                    </mat-row>
+                </ng-template>
 
             </mat-table>
 

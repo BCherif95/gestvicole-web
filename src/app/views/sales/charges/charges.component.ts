@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/internal/operators';
 import {ToastrService} from 'ngx-toastr';
 import {ChargesService} from './charges.service';
 import {SalesChargeFormDialogComponent} from '../charge-form/charge-form.component';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'sales-charges',
@@ -38,7 +39,8 @@ export class ChargesComponent implements OnInit
     constructor(
         private _chargesService: ChargesService,
         private _toastService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the private defaults
@@ -90,6 +92,10 @@ export class ChargesComponent implements OnInit
                 action: 'edit'
             }
         });
+    }
+
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('charge', scope);
     }
 }
 

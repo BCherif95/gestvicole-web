@@ -96,12 +96,12 @@ export const definitions: Rules = [
         requirements: {},
     },
     {
-        rolePattern: 'stockEntry:list',
+        rolePattern: 'stock_entry:list',
         urlPattern: 'tr/stock-management/stock-entries',
         requirements: {},
     },
     {
-        rolePattern: 'stockOut:list',
+        rolePattern: 'stock_out:list',
         urlPattern: 'tr/stock-management/stock-outs',
         requirements: {},
     },

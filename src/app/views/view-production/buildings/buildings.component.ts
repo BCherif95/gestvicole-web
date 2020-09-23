@@ -9,6 +9,7 @@ import { FuseUtils } from '@fuse/utils';
 
 import { takeUntil } from 'rxjs/internal/operators';
 import {ViewProductionBuildingsService} from './buildings.service';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'view-production-buildings',
@@ -35,7 +36,8 @@ export class ViewProductionBuildingsComponent implements OnInit
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _viewProductionBuildingsService: ViewProductionBuildingsService
+        private _viewProductionBuildingsService: ViewProductionBuildingsService,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the private defaults
@@ -67,6 +69,10 @@ export class ViewProductionBuildingsComponent implements OnInit
 
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
+    }
+
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('building', scope);
     }
 }
 

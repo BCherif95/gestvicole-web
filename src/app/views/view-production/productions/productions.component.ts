@@ -10,6 +10,7 @@ import { FuseUtils } from '@fuse/utils';
 import { takeUntil } from 'rxjs/internal/operators';
 import {ProductionsService} from './productions.service';
 import {FormControl} from '@angular/forms';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class ProductionsComponent implements OnInit
 
     constructor(
         private _productionsService: ProductionsService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the private defaults
@@ -75,6 +77,9 @@ export class ProductionsComponent implements OnInit
             });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('production', scope);
+    }
 }
 
 export class FilesDataSource extends DataSource<any>

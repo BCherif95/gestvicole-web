@@ -13,6 +13,7 @@ import {Role} from '../../../data/models/role.model';
 import {RolesService} from '../roles/roles.service';
 import {UserService} from './user.service';
 import {environment} from '../../../../environments/environment';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'admin-user',
@@ -51,7 +52,8 @@ export class UserComponent implements OnInit, OnDestroy
         private _router: Router,
         private _formBuilder: FormBuilder,
         private _location: Location,
-        private _matSnackBar: MatSnackBar
+        private _matSnackBar: MatSnackBar,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the default
@@ -198,7 +200,7 @@ export class UserComponent implements OnInit, OnDestroy
         this.user = this.userForm.getRawValue();
         this.user.roles = this.selectedRoleValues;
         this._userService.update(this.user).subscribe((response: any) => {
-            if (response['status'] == 'OK') {
+            if (response['status'] === 'OK') {
                 this._userService.onUserChanged.next(this.user);
                 this._toastService.success(response['message'], 'Utilisateur');
                 this._router.navigateByUrl('/tr/admin/users');
@@ -211,4 +213,7 @@ export class UserComponent implements OnInit, OnDestroy
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('user', scope);
+    }
 }

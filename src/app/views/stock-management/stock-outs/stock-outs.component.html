@@ -34,7 +34,7 @@
             <!-- / SEARCH -->
 
             <!-- ADD BUTTON -->
-            <button mat-fab class="accent" id="add-contact-button"
+            <button *ngIf="has('create')" mat-fab class="accent" id="add-contact-button"
                     (click)="newOut()"
                     matTooltip="Ajouter une sortie"
                     [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
@@ -96,12 +96,12 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let stock">
                         <div fxFlex="row" fxLayoutAlign="end center">
-                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
+                            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
                                 <mat-icon class="secondary-text">more_vert</mat-icon>
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
-                                <button *ngIf="stock.state === 'WAITING'"
+                                <button *ngIf="stock.state === 'WAITING' && has('validate')"
                                         mat-menu-item (click)="validation(stock)">
                                     <mat-icon>check</mat-icon>
                                     <span>Valider</span>

@@ -13,6 +13,7 @@ import {ViewProductionBuildingsService} from '../buildings/buildings.service';
 import {Building} from '../../../data/models/building.model';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'view-production-production',
@@ -50,7 +51,8 @@ export class ProductionComponent implements OnInit, OnDestroy
         private _router: Router,
         private _formBuilder: FormBuilder,
         private _location: Location,
-        private _matSnackBar: MatSnackBar
+        private _matSnackBar: MatSnackBar,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the default
@@ -180,4 +182,7 @@ export class ProductionComponent implements OnInit, OnDestroy
         }
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('production', scope);
+    }
 }

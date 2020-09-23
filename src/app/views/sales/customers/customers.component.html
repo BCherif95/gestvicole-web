@@ -34,7 +34,7 @@
             <!-- / SEARCH -->
 
             <!-- ADD BUTTON -->
-            <button mat-fab class="accent" id="add-contact-button"
+            <button *ngIf="has('create')" mat-fab class="accent" id="add-contact-button"
                     (click)="newCustomer()"
                     matTooltip="Ajouter un client"
                     [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
@@ -91,13 +91,14 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let customer">
                         <div fxFlex="row" fxLayoutAlign="end center">
-                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
+                            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
                                 <mat-icon class="secondary-text">more_vert</mat-icon>
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
                                 <button
                                     mat-menu-item
+                                    *ngIf="has('update')"
                                     (click)="editCustomer(customer)"
                                     matTooltip="modifier">
                                     <mat-icon>edit</mat-icon>
@@ -105,6 +106,7 @@
                                 </button>
                                 <button
                                     mat-menu-item
+                                    *ngIf="has('delete')"
                                     (click)="delete(customer)"
                                     matTooltip="supprimer">
                                     <mat-icon>delete</mat-icon>

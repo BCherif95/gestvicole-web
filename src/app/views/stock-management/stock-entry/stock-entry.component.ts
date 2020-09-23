@@ -6,6 +6,7 @@ import {Product} from '../../../data/models/product.model';
 import {ProductsService} from '../products/products.service';
 import {StockEntry} from '../../../data/models/stock.entry.model';
 import {StockEntriesService} from '../stock-entries/stock-entries.service';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'stock-management-stock-entry-dialog',
@@ -39,7 +40,7 @@ export class StockEntryComponent
         private _formBuilder: FormBuilder,
         private _productsService: ProductsService,
         private _stockEntriesService: StockEntriesService,
-        private _toastService: ToastrService
+        private _toastService: ToastrService,
     )
     {
         // Set the defaults

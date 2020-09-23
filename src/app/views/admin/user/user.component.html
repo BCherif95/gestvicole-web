@@ -13,7 +13,7 @@
             <!-- APP TITLE -->
             <div fxLayout="row" fxLayoutAlign="start center">
 
-                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/tr/admin/users'">
+                <button *ngIf="has('list')" mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/tr/admin/users'">
                     <mat-icon>arrow_back</mat-icon>
                 </button>
 
@@ -34,14 +34,14 @@
 
             <button mat-raised-button (click)="save()"
                     class="save-product-button"
-                    [disabled]="userForm.invalid || selectedRoleValues?.length <= 0"
+                    [disabled]="userForm.invalid || selectedRoleValues?.length <= 0 || !has('create')"
                     *ngIf="pageType ==='new'">
                 <span>Enregistrer</span>
             </button>
 
             <button mat-raised-button (click)="update()"
                     class="save-product-button"
-                    [disabled]="userForm.invalid || selectedRoleValues?.length <= 0"
+                    [disabled]="userForm.invalid || selectedRoleValues?.length <= 0 || !has('update')"
                     *ngIf="pageType ==='edit'">
                 <span>Modifier</span>
             </button>

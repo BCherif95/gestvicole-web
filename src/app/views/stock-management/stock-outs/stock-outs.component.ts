@@ -14,6 +14,7 @@ import {StockOutComponent} from '../stock-out/stock-out.component';
 import {StockOut} from '../../../data/models/stock.out.model';
 import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.component';
 import {STOCK_OUT_STATE} from '../../../data/enums/enums';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'stock-management-stock-outs',
@@ -47,7 +48,8 @@ export class StockOutsComponent implements OnInit
     constructor(
         private _stockOutsService: StockOutsService,
         private _toastService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the private defaults
@@ -113,6 +115,9 @@ export class StockOutsComponent implements OnInit
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('stock_out', scope);
+    }
 }
 
 

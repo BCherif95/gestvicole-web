@@ -36,7 +36,7 @@
             </div>
             <!-- / SEARCH -->
 
-            <button mat-raised-button
+            <button *ngIf="has('create')" mat-raised-button
                     [routerLink]="'/tr/production/productions/new'"
                     class="add-product-button fuse-white mt-24 mt-md-0">
                 <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
@@ -145,11 +145,20 @@
 
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
 
-                <mat-row *matRowDef="let production; columns: displayedColumns;"
-                         class="production"
-                         [routerLink]="'/tr/production/productions/'+production.id+'/'+production.name"
-                         matRipple>
-                </mat-row>
+                <ng-container *ngIf="has('update'); else not">
+                    <mat-row *matRowDef="let production; columns: displayedColumns;"
+                             class="production"
+                             [routerLink]="'/tr/production/productions/'+production.id+'/'+production.name"
+                             matRipple>
+                    </mat-row>
+                </ng-container>
+
+                <ng-template #not>
+                    <mat-row *matRowDef="let production; columns: displayedColumns;"
+                             class="production"
+                             matRipple>
+                    </mat-row>
+                </ng-template>
 
             </mat-table>
 

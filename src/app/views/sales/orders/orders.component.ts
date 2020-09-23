@@ -12,6 +12,7 @@ import {OrdersService} from './orders.service';
 import { ORDER_STATE } from 'app/data/enums/enums';
 import {SalesOrderFormDialogComponent} from '../order-form/order-form.component';
 import {SalesInvoiceFormDialogComponent} from '../invoice-form/invoice-form.component';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'sales-orders',
@@ -42,7 +43,8 @@ export class OrdersComponent implements OnInit
 
     constructor(
         private _ordersService: OrdersService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the private defaults
@@ -105,6 +107,9 @@ export class OrdersComponent implements OnInit
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('order', scope);
+    }
 }
 
 export class FilesDataSource extends DataSource<any>

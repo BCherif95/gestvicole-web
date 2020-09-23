@@ -13,6 +13,7 @@ import {BuildingSaveEntity} from '../../../data/wrapper/building.save.entity.mod
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {LayerTypeService} from '../../../services/layer.type.service';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'view-production-building',
@@ -52,6 +53,7 @@ export class ViewProductionBuildingComponent implements OnInit, OnDestroy
         private _toastService: ToastrService,
         private _layerTypeService: LayerTypeService,
         private _router: Router,
+        private roleHelpers: RoleHelpers
     )
     {
         // Set the default
@@ -198,6 +200,7 @@ export class ViewProductionBuildingComponent implements OnInit, OnDestroy
         }
     }
 
-
-
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('building', scope);
+    }
 }

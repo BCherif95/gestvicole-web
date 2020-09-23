@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/internal/operators';
 import {ToastrService} from 'ngx-toastr';
 import {StockEntriesService} from './stock-entries.service';
 import {StockEntryComponent} from '../stock-entry/stock-entry.component';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'stock-management-stock-entries',
@@ -40,7 +41,8 @@ export class StockEntriesComponent implements OnInit
     constructor(
         private _stockEntriesService: StockEntriesService,
         private _toastService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the private defaults
@@ -83,6 +85,9 @@ export class StockEntriesComponent implements OnInit
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('stock_entry', scope);
+    }
 }
 
 

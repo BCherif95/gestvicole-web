@@ -34,7 +34,7 @@
             <!-- / SEARCH -->
 
             <!-- ADD BUTTON -->
-            <button mat-fab class="accent"
+            <button *ngIf="has('create')" mat-fab class="accent"
                     id="add-contact-button"
                     (click)="newCharge()"
                     [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
@@ -106,13 +106,14 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let charge">
                         <div fxFlex="row" fxLayoutAlign="end center">
-                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
+                            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
                                 <mat-icon class="secondary-text">more_vert</mat-icon>
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
                                 <button
                                     mat-menu-item
+                                    *ngIf="has('update')"
                                     (click)="editCharge(charge)"
                                     matTooltip="modifier">
                                     <mat-icon>edit</mat-icon>
@@ -120,6 +121,7 @@
                                 </button>
                                 <button
                                     mat-menu-item
+                                    *ngIf="has('info')"
                                     [routerLink]="'/views/sales/charges/infos/'+charge.id"
                                     matTooltip="details">
                                     <mat-icon>remove_red_eye</mat-icon>

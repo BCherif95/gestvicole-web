@@ -12,6 +12,7 @@ import {ConfirmDialogComponent} from '../../confirm-dialog/confirm-dialog.compon
 import {ToastrService} from 'ngx-toastr';
 import {ProductsService} from './products.service';
 import {ProductFormComponent} from '../product-form/product-form.component';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'stock-management-products',
@@ -43,7 +44,8 @@ export class ProductsComponent implements OnInit
     constructor(
         private _productsService: ProductsService,
         private _toastService: ToastrService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the private defaults
@@ -119,6 +121,9 @@ export class ProductsComponent implements OnInit
         });
     }*/
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('product', scope);
+    }
 }
 
 

@@ -153,17 +153,17 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let payment">
                         <div fxFlex="row" fxLayoutAlign="end center">
-                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
+                            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="moreMenu" matTooltip="Plus">
                                 <mat-icon class="secondary-text">more_vert</mat-icon>
                             </button>
 
                             <mat-menu #moreMenu="matMenu">
-                                <button mat-menu-item [routerLink]="'/views/sales/print/payment/'+payment.id">
+                                <button *ngIf="has('print')" mat-menu-item [routerLink]="'/views/sales/print/payment/'+payment.id">
                                     <mat-icon>print</mat-icon>
                                     <span>Imprimer</span>
                                 </button>
                                 <button
-                                    *ngIf="payment.state === 'PENDING'"
+                                    *ngIf="payment.state === 'PENDING' && has('validate')"
                                     mat-menu-item
                                     (click)="showPaymentDialog('validate', payment)"
                                     matTooltip="Valider le paiement">
@@ -172,6 +172,7 @@
                                 </button>
                                 <button
                                     mat-menu-item
+                                    *ngIf="has('cancel')"
                                     (click)="cancelPayment(payment)"
                                     matTooltip="Annuler le paiement">
                                     <mat-icon>cancel</mat-icon>

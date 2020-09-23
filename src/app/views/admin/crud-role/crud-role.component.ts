@@ -13,6 +13,7 @@ import {ToastrService} from 'ngx-toastr';
 import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
 import {PrivilegeService} from '../../../services/privilege.service';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector: 'admin-crud-role',
@@ -50,7 +51,8 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
         private _privilegeService: PrivilegeService,
         private _matSnackBar: MatSnackBar,
         private _router: Router,
-        private _toastrService: ToastrService
+        private _toastrService: ToastrService,
+        private roleHelpers: RoleHelpers
     ) {
         // Set the default
         this.role = new Role();
@@ -159,7 +161,7 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
         this.role = this.roleForm.getRawValue();
         this.role.privileges = this.selectedPrivilegeValues;
         this._adminCrudRoleService.create(this.role).subscribe((response: any) => {
-            if (response['status'] == 'OK') {
+            if (response['status'] === 'OK') {
                 this._adminCrudRoleService.onRoleChanged.next(this.role);
                 this._toastrService.success(response['message'], 'Rôle');
                 this._router.navigateByUrl('/tr/admin/roles');
@@ -175,7 +177,7 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
         this.role = this.roleForm.getRawValue();
         this.role.privileges = this.selectedPrivilegeValues;
         this._adminCrudRoleService.update(this.role).subscribe((response: any) => {
-            if (response['status'] == 'OK') {
+            if (response['status'] === 'OK') {
                 this._adminCrudRoleService.onRoleChanged.next(this.role);
                 this._toastrService.success(response['message'], 'Rôle');
                 this._router.navigateByUrl('/tr/admin/roles');
@@ -187,4 +189,7 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
         });
     }
 
+    has(scope: string): boolean {
+        return this.roleHelpers.hasRole('role', scope);
+    }
 }
