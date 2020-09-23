@@ -11,6 +11,8 @@ import { navigation } from 'app/navigation/navigation';
 import {ProjectUtils} from '../../../utils/project-utils';
 import {User} from '../../../data/models/user.model';
 import {AuthBody} from '../../../utils/auth-body';
+import {RoleDatasource} from '../../../authz/impl/RoleDatasource';
+import {Router} from '@angular/router';
 
 @Component({
     selector     : 'toolbar',
@@ -47,7 +49,9 @@ export class ToolbarComponent implements OnInit, OnDestroy
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
-        private _translateService: TranslateService
+        private _translateService: TranslateService,
+        private router: Router,
+        private roleDatasource: RoleDatasource,
     )
     {
         // Set the defaults
@@ -167,5 +171,12 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
         // Use the selected language for translations
         this._translateService.use(lang.id);
+    }
+
+    disconnect(): Promise<boolean> {
+        localStorage.removeItem('app-token');
+        localStorage.removeItem('isLoggedin');
+        this.roleDatasource.roles$.next([]);
+        return this.router.navigateByUrl('/login');
     }
 }

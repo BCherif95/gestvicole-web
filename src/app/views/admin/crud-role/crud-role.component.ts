@@ -162,7 +162,7 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
             if (response['status'] == 'OK') {
                 this._adminCrudRoleService.onRoleChanged.next(this.role);
                 this._toastrService.success(response['message'], 'Rôle');
-                this._router.navigateByUrl('/views/admin/roles');
+                this._router.navigateByUrl('/tr/admin/roles');
             } else {
                 this._toastrService.error(response['message']);
             }
@@ -178,7 +178,7 @@ export class AdminCrudRoleComponent implements OnInit, OnDestroy {
             if (response['status'] == 'OK') {
                 this._adminCrudRoleService.onRoleChanged.next(this.role);
                 this._toastrService.success(response['message'], 'Rôle');
-                this._router.navigateByUrl('/views/admin/roles');
+                this._router.navigateByUrl('/tr/admin/roles');
             } else {
                 this._toastrService.error(response['message']);
             }

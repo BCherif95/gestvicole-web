@@ -23,13 +23,13 @@ export class UserService implements Resolve<any>
      * @param {HttpClient} _httpClient
      */
     constructor(
-        private _httpClient: HttpClient
+        private _httpClient: HttpClient,
+        private pu: ProjectUtils
     )
     {
         // Set the defaults
         this.onUserChanged = new BehaviorSubject({});
         this.serviceURL = environment.serviceUrl + '/users';
-        this.httpOptions = new ProjectUtils().httpHeaders();
     }
 
     /**
@@ -71,7 +71,7 @@ export class UserService implements Resolve<any>
             }
             else
             {
-                this._httpClient.get(this.serviceURL + '/' + this.routeParams.id +'/getUser', this.httpOptions)
+                this._httpClient.get(this.serviceURL + '/' + this.routeParams.id +'/getUser', this.pu.httpHeaders())
                     .subscribe((response: any) => {
                         this.user = response['response'];
                         this.onUserChanged.next(this.user);
@@ -82,10 +82,14 @@ export class UserService implements Resolve<any>
     }
 
     public save(user: User) {
-        return this._httpClient.post(this.serviceURL + '/save', user, this.httpOptions);
+        return this._httpClient.post(this.serviceURL + '/save', user, this.pu.httpHeaders());
     }
 
     public update(user: User) {
-        return this._httpClient.put(this.serviceURL + '/update', user, this.httpOptions);
+        return this._httpClient.put(this.serviceURL + '/update', user, this.pu.httpHeaders());
+    }
+
+    findAuthzRoles(id: number): Observable<any> {
+        return this._httpClient.get(this.serviceURL + '/' + id + '/roles', this.pu.httpHeaders());
     }
 }

@@ -62,9 +62,9 @@ export class ProjectUtils {
         const token: string = this.getToken();
         let headers = new HttpHeaders();
 
-        /*headers = headers.set('Access-Control-Allow-Origin', '*');
-        headers = headers.set('Accept', 'application/json');
-        headers = headers.set('Content-Type', 'application/json');*/
+        // headers = headers.set('Access-Control-Allow-Origin', '*');
+        // headers = headers.set('Accept', 'application/json');
+        headers = headers.set('Content-Type', 'application/json');
         if (token) { // token is present
             headers = headers.set('Authorization', 'Bearer ' + token);
         }

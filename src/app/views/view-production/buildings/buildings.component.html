@@ -35,7 +35,7 @@
 
             <!-- ADD BUTTON -->
             <button mat-raised-button
-                    [routerLink]="'/views/view-production/buildings/new'"
+                    [routerLink]="'/tr/production/buildings/new'"
                     class="add-product-button fuse-white mt-24 mt-md-0">
                 <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
                     add
@@ -100,7 +100,7 @@
 
                 <mat-row *matRowDef="let building; columns: displayedColumns;"
                          class="building"
-                         [routerLink]="'/views/view-production/buildings/'+building.id+'/'+building.name"
+                         [routerLink]="'/tr/production/buildings/'+building.id+'/'+building.name"
                          matRipple>
                 </mat-row>
 

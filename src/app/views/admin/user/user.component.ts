@@ -179,10 +179,10 @@ export class UserComponent implements OnInit, OnDestroy
         this.user = this.userForm.getRawValue();
         this.user.roles = this.selectedRoleValues;
         this._userService.save(this.user).subscribe((response: any) => {
-            if (response['status'] == 'OK') {
+            if (response['status'] === 'OK') {
                 this._userService.onUserChanged.next(this.user);
                 this._toastService.success(response['message'], 'Utilisateur');
-                this._router.navigateByUrl('/views/admin/users');
+                this._router.navigateByUrl('/tr/admin/users');
             } else {
                 this._toastService.error(response['message']);
             }
@@ -201,7 +201,7 @@ export class UserComponent implements OnInit, OnDestroy
             if (response['status'] == 'OK') {
                 this._userService.onUserChanged.next(this.user);
                 this._toastService.success(response['message'], 'Utilisateur');
-                this._router.navigateByUrl('/views/admin/users');
+                this._router.navigateByUrl('/tr/admin/users');
             } else {
                 this._toastService.error(response['message']);
             }

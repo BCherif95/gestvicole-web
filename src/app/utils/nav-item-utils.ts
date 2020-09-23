@@ -29,7 +29,7 @@ export class NavItemUtils {
             title: 'Tableau de bord',
             type: 'item',
             icon: 'dashboard',
-            url: '/views/dashboards/main'
+            url: '/tr/dashboards/main'
         };
         if (this.roleUtils.canSeeDashMenu()) {
             baseMenuChildren.push(dashMenuItem);
@@ -42,7 +42,7 @@ export class NavItemUtils {
             title: 'Bâtiments',
             type: 'item',
             icon: 'home',
-            url: '/views/view-production/buildings'
+            url: '/tr/production/buildings'
         };
         if (this.roleUtils.canSeeBuildingMenu()) {
             baseMenuChildren.push(buildingMenuItem);
@@ -54,7 +54,7 @@ export class NavItemUtils {
             title: 'Productions',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/view-production/productions'
+            url: '/tr/production/productions'
         };
         if (this.roleUtils.canSeeProductionMenu()) {
             baseMenuChildren.push(productionMenuItem);
@@ -66,7 +66,7 @@ export class NavItemUtils {
             title: 'Charges et Revenus ',
             type: 'item',
             icon: 'add_shopping_cart',
-            url: '/views/sales/charges',
+            url: '/tr/sales/charges',
         }
         if (this.roleUtils.canSeeChargeMenu()) {
             baseMenuChildren.push(chargeMenuItem);
@@ -81,7 +81,7 @@ export class NavItemUtils {
             title: 'Clients',
             icon: 'people',
             type: 'item',
-            url: '/views/sales/customers'
+            url: '/tr/sales/customers'
         };
         if (this.roleUtils.canSeeCustomerMenu()) {
             salesMenuChildren.push(customerMenuItem);
@@ -93,7 +93,7 @@ export class NavItemUtils {
             title: 'Commandes',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/sales/orders',
+            url: '/tr/sales/orders',
         };
         if (this.roleUtils.canSeeOrderMenu()) {
             salesMenuChildren.push(orderMenuItem);
@@ -105,7 +105,7 @@ export class NavItemUtils {
             title: 'Factures',
             type: 'item',
             icon: 'receipt',
-            url: '/views/sales/invoices'
+            url: '/tr/sales/invoices'
         };
         if (this.roleUtils.canSeeInvoiceMenu()) {
             salesMenuChildren.push(invoiceMenuItem);
@@ -117,7 +117,7 @@ export class NavItemUtils {
             title: 'Paiements',
             type: 'item',
             icon: 'payment',
-            url: '/views/sales/payments',
+            url: '/tr/sales/payments',
         };
         if (this.roleUtils.canSeePaymentMenu()) {
             salesMenuChildren.push(paymentMenuItem);
@@ -145,7 +145,7 @@ export class NavItemUtils {
             title: 'Stocks',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/stock-management/stocks'
+            url: '/tr/stock-management/stocks'
         };
         if (this.roleUtils.canSeeStockMenu()) {
             stockMenuChildren.push(stockMenuItem);
@@ -157,7 +157,7 @@ export class NavItemUtils {
             title: 'Entrées',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/stock-management/stock-entries'
+            url: '/tr/stock-management/stock-entries'
         };
         if (this.roleUtils.canSeeStockEntryMenu()) {
             stockMenuChildren.push(stockEntryMenuItem);
@@ -169,7 +169,7 @@ export class NavItemUtils {
             title: 'Sorties',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/stock-management/stock-outs'
+            url: '/tr/stock-management/stock-outs'
         };
         if (this.roleUtils.canSeeStockOutMenu()) {
             stockMenuChildren.push(stockOutMenuItem);
@@ -181,7 +181,7 @@ export class NavItemUtils {
             title: 'Produits',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/stock-management/products',
+            url: '/tr/stock-management/products',
         };
         if (this.roleUtils.canSeeProductMenu()) {
             stockMenuChildren.push(productMenuItem);
@@ -193,7 +193,7 @@ export class NavItemUtils {
             title: 'Catégories',
             type: 'item',
             icon: 'shopping_basket',
-            url: '/views/stock-management/categories',
+            url: '/tr/stock-management/categories',
         };
         if (this.roleUtils.canSeeCategoryMenu()) {
             stockMenuChildren.push(categoryMenuItem);
@@ -221,7 +221,7 @@ export class NavItemUtils {
             title: 'Utilisateurs',
             type: 'item',
             icon: 'people',
-            url: '/views/admin/users'
+            url: '/tr/admin/users'
         };
         if (this.roleUtils.canSeeUserMenu()) {
             adminMenuChildren.push(userMenuItem);
@@ -233,7 +233,7 @@ export class NavItemUtils {
             title: 'Roles',
             icon: 'settings',
             type: 'item',
-            url: '/views/admin/roles'
+            url: '/tr/admin/roles'
         };
         if (this.roleUtils.canSeeRoleMenu()) {
             adminMenuChildren.push(roleMenuItem);

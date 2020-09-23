@@ -9,6 +9,7 @@ import { FuseUtils } from '@fuse/utils';
 
 import { takeUntil } from 'rxjs/internal/operators';
 import {UsersService} from './users.service';
+import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'admin-users',
@@ -35,7 +36,8 @@ export class UsersComponent implements OnInit
     private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _usersService: UsersService
+        private _usersService: UsersService,
+        private roleHelpers: RoleHelpers,
     )
     {
         // Set the private defaults
@@ -67,6 +69,10 @@ export class UsersComponent implements OnInit
 
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
+    }
+
+    has(scope: string) {
+        return this.roleHelpers.hasRole('user', scope);
     }
 }
 

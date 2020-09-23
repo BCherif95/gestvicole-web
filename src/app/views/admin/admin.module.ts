@@ -4,7 +4,8 @@ import {
     MatButtonModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatDialogModule, MatDividerModule,
+    MatDialogModule,
+    MatDividerModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
@@ -31,17 +32,28 @@ import {UserService} from './user/user.service';
 import {UserComponent} from './user/user.component';
 import {AdminCrudRoleComponent} from './crud-role/crud-role.component';
 import {AdminCrudRoleService} from './crud-role/crud-role.service';
-import {RoleMenuGuard, RoleUpdateGuard, UserCreateGuard, UserMenuGuard, UserUpdateGuard} from '../../shared/role.guard';
-
 
 const routes: Routes = [
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'users'
+    },
     {
         path: 'users',
         component: UsersComponent,
         resolve: {
             data: UsersService
-        }
+        },
     },
+    /*{
+        path: 'users/new',
+        pathMatch: 'full',
+        component: UserComponent,
+        resolve: {
+            data: UserService
+        }
+    },*/
     {
         path: 'users/:id',
         component: UserComponent,
@@ -64,14 +76,14 @@ const routes: Routes = [
         }
     },
     {
-        path: 'roles/by-name/:name',
+        path: 'roles/:name',
         component: AdminCrudRoleComponent,
         resolve: {
             data: AdminCrudRoleService
         }
     },
     {
-        path: 'roles/:name',
+        path: 'roles/by-name/:name',
         component: AdminCrudRoleComponent,
         resolve: {
             data: AdminCrudRoleService

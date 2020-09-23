@@ -15,21 +15,21 @@ import {NavItemUtils} from '../utils/nav-item-utils';
 //                 title: 'Tableau de bord',
 //                 type: 'item',
 //                 icon: 'dashboard',
-//                 url: '/views/dashboards/main'
+//                 url: '/tr/dashboards/main'
 //             },
 //             {
 //                 id: 'buidings',
 //                 title: 'Bâtiments',
 //                 type: 'item',
 //                 icon: 'home',
-//                 url: '/views/view-production/buildings'
+//                 url: '/tr/production/buildings'
 //             },
 //             {
 //                 id: 'productions',
 //                 title: 'Productions',
 //                 type: 'item',
 //                 icon: 'shopping_basket',
-//                 url: '/views/view-production/productions'
+//                 url: '/tr/production/productions'
 //             },
 //             {
 //                 id: 'admin',
@@ -42,14 +42,14 @@ import {NavItemUtils} from '../utils/nav-item-utils';
 //                         title: 'Utilisateurs',
 //                         type: 'item',
 //                         icon: 'person',
-//                         url: '/views/admin/users'
+//                         url: '/tr/admin/users'
 //                     },
 //                     {
 //                         id: 'roles',
 //                         title: 'Roles',
 //                         type: 'item',
 //                         icon: 'people',
-//                         url: '/views/admin/roles'
+//                         url: '/tr/admin/roles'
 //                     }
 //                 ]
 //             },
@@ -72,7 +72,8 @@ export const navigation: FuseNavigation[] = [
                 title: 'Tableau de bord',
                 type: 'item',
                 icon: 'dashboard',
-                url: '/views/dashboards/main',
+                role: 'dashboard',
+                url: '/tr/dashboard',
                 children: []
             },
             {
@@ -80,7 +81,8 @@ export const navigation: FuseNavigation[] = [
                 title: 'Bâtiments',
                 type: 'item',
                 icon: 'home',
-                url: '/views/view-production/buildings',
+                role: 'building',
+                url: '/tr/production/buildings',
                 children: []
             },
             {
@@ -88,7 +90,8 @@ export const navigation: FuseNavigation[] = [
                 title: 'Productions',
                 type: 'item',
                 icon: 'shopping_basket',
-                url: '/views/view-production/productions',
+                role: 'production',
+                url: '/tr/production/productions',
                 children: []
             },
             {
@@ -102,7 +105,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Clients',
                         type: 'item',
                         icon: 'person',
-                        url: '/views/sales/customers',
+                        role: 'customer',
+                        url: '/tr/sales/customers',
                         children: []
                     },
                     {
@@ -110,7 +114,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Commandes',
                         type: 'item',
                         icon: 'shopping_basket',
-                        url: '/views/sales/orders',
+                        url: '/tr/sales/orders',
+                        role: 'order',
                         children: []
                     },
                     {
@@ -118,7 +123,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Factures',
                         type: 'item',
                         icon: 'receipt',
-                        url: '/views/sales/invoices',
+                        role: 'invoice',
+                        url: '/tr/sales/invoices',
                         children: []
                     },
                     {
@@ -126,7 +132,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Paiements',
                         type: 'item',
                         icon: 'payment',
-                        url: '/views/sales/payments',
+                        role: 'payment',
+                        url: '/tr/sales/payments',
                         children: []
                     }
                 ]
@@ -136,7 +143,8 @@ export const navigation: FuseNavigation[] = [
                 title: 'Charges et Revenus ',
                 type: 'item',
                 icon: 'add_shopping_cart',
-                url: '/views/sales/charges',
+                role: 'charge',
+                url: '/tr/sales/charges',
                 children: []
             },
             {
@@ -150,7 +158,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Stocks',
                         type: 'item',
                         icon: 'shopping_basket',
-                        url: '/views/stock-management/stocks',
+                        role: 'stock',
+                        url: '/tr/stock-management/stocks',
                         children: []
                     },
                     {
@@ -158,7 +167,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Entrées',
                         type: 'item',
                         icon: 'shopping_basket',
-                        url: '/views/stock-management/stock-entries',
+                        role: 'stock-entry',
+                        url: '/tr/stock-management/stock-entries',
                         children: []
                     },
                     {
@@ -166,7 +176,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Sorties',
                         type: 'item',
                         icon: 'shopping_basket',
-                        url: '/views/stock-management/stock-outs',
+                        role: 'stock-out',
+                        url: '/tr/stock-management/stock-outs',
                         children: []
                     },
                     {
@@ -174,7 +185,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Produits',
                         type: 'item',
                         icon: 'shopping_basket',
-                        url: '/views/stock-management/products',
+                        role: 'product',
+                        url: '/tr/stock-management/products',
                         children: []
                     },
                     {
@@ -182,7 +194,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Catégories',
                         type: 'item',
                         icon: 'shopping_basket',
-                        url: '/views/stock-management/categories',
+                        role: 'category',
+                        url: '/tr/stock-management/categories',
                         children: []
                     }
                 ]
@@ -198,7 +211,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Utilisateurs',
                         type: 'item',
                         icon: 'person',
-                        url: '/views/admin/users',
+                        role: 'user',
+                        url: '/tr/admin/users',
                         children: []
                     },
                     {
@@ -206,7 +220,8 @@ export const navigation: FuseNavigation[] = [
                         title: 'Roles',
                         type: 'item',
                         icon: 'people',
-                        url: '/views/admin/roles',
+                        role: 'role',
+                        url: '/tr/admin/roles',
                         children: []
                     }
                 ]
@@ -230,7 +245,7 @@ export const navigation: FuseNavigation[] = [
 //                 title: 'Productions',
 //                 type: 'item',
 //                 icon: 'shopping_basket',
-//                 url: '/views/view-production/productions'
+//                 url: '/tr/production/productions'
 //             },
 //
 //         ]

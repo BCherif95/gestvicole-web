@@ -19,7 +19,7 @@
             </div>
 
             <div class="px-8 px-md-16">
-                <fuse-shortcuts [navigation]="navigation"></fuse-shortcuts>
+                <fuse-shortcuts [navigation]="[navigation]"></fuse-shortcuts>
             </div>
 
         </div>
@@ -51,7 +51,7 @@
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Logout</span>
                 </button>-->
-                <button [routerLink]="'/auth/login'" mat-menu-item class="">
+                <button (click)="disconnect()" mat-menu-item class="">
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Deconnexion</span>
                 </button>

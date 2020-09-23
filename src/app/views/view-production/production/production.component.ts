@@ -163,7 +163,7 @@ export class ProductionComponent implements OnInit, OnDestroy
             this._productionService.create(this.production).subscribe(data => {
                 if (data['status'] === 'OK') {
                     this._toastService.success(data['message']);
-                    this._router.navigateByUrl('/views/view-production/productions');
+                    this._router.navigateByUrl('/tr/production/productions');
                 } else {
                     this._toastService.error(data['message']);
                 }
@@ -172,7 +172,7 @@ export class ProductionComponent implements OnInit, OnDestroy
             this._productionService.update(this.production).subscribe(data => {
                 if (data['status'] === 'OK') {
                     this._toastService.success(data['message']);
-                    this._router.navigateByUrl('/views/view-production/productions');
+                    this._router.navigateByUrl('/tr/production/productions');
                 } else {
                     this._toastService.error(data['message']);
                 }

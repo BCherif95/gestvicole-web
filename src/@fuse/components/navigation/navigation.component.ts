@@ -3,6 +3,8 @@ import { merge, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
+import {RoleDatasource} from '../../../app/authz/impl/RoleDatasource';
+import {Role} from '../../../app/authz';
 
 @Component({
     selector       : 'fuse-navigation',
@@ -21,6 +23,7 @@ export class FuseNavigationComponent implements OnInit
 
     // Private
     private _unsubscribeAll: Subject<any>;
+    private roles: Role[];
 
     /**
      *
@@ -29,11 +32,17 @@ export class FuseNavigationComponent implements OnInit
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _fuseNavigationService: FuseNavigationService
+        private _fuseNavigationService: FuseNavigationService,
+        private roleDatasource: RoleDatasource,
+        private ref: ChangeDetectorRef,
     )
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+        this.roleDatasource.roles$.subscribe(roles => {
+            this.roles = roles || [];
+            this.ref.markForCheck();
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -71,5 +80,19 @@ export class FuseNavigationComponent implements OnInit
              // Mark for check
              this._changeDetectorRef.markForCheck();
          });
+    }
+
+    has(role: string, context): boolean {
+        const item = context.roles.find(r => r.name === role);
+        if (!item) {
+            return false;
+        }
+        const authorizations = item.authorizations;
+        for (const key in authorizations) {
+            if (authorizations[key]) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -79,7 +79,6 @@ export class RolesService implements Resolve<any>
     }
 
     findAll(): Observable<any> {
-        return this._httpClient.get(this.serviceURL+'/all', this.httpOptions)
+        return this._httpClient.get(this.serviceURL+'/all', this.httpOptions);
     }
-
 }

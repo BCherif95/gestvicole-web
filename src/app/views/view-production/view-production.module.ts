@@ -40,6 +40,11 @@ const options: Partial<IConfig> = {
 
 const routes: Routes = [
     {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'buildings'
+    },
+    {
         path     : 'buildings',
         component: ViewProductionBuildingsComponent,
         resolve  : {

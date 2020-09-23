@@ -25,6 +25,12 @@ export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy
     @HostBinding('class.open')
     public isOpen = false;
 
+    @Input()
+    func;
+
+    @Input()
+    context;
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -264,4 +270,14 @@ export class FuseNavVerticalCollapsableComponent implements OnInit, OnDestroy
         const role = user && user.roles && user.roles.length > 0 ? user.roles[0] : null;
         return role && role.name && role.name.toUpperCase() === 'ADMIN' || item.id === 'productions';
     }*/
+
+    hasOneOrPlus(item: FuseNavigationItem): boolean {
+        const children = item.children;
+        for (const c of children) {
+            if (this.func && this.func(c.role, this.context)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

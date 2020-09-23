@@ -31,13 +31,17 @@ import {StockOutsComponent} from './stock-outs/stock-outs.component';
 import { StockEntryComponent } from './stock-entry/stock-entry.component';
 import { StockOutComponent } from './stock-out/stock-out.component';
 import { ConfirmDialogModule } from '../confirm-dialog/confirm-dialog.module';
-import {CategoryMenuGuard, ProductionMenuGuard, StockEntryMenuGuard, StockMenuGuard, StockOutMenuGuard} from '../../shared/role.guard';
 
 const options: Partial<IConfig> = {
     validation: false
-}
+};
 
 const routes: Routes = [
+    {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'categories'
+    },
     {
         path     : 'categories',
         component: CategoriesComponent,
