@@ -33,13 +33,13 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Date de la commande</mat-label>
                     <input matInput [matDatepicker]="orderDateDatePicker" name="orderDate"
-                           formControlName="orderDate" required>
+                           formControlName="orderDate" (dateInput)="addEvent($event)" required>
                     <mat-datepicker-toggle matSuffix [for]="orderDateDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #orderDateDatePicker></mat-datepicker>
                 </mat-form-field>
             </div>
 
-            <div fxLayout="row" fxLayoutAlign="start start">
+           <!-- <div fxLayout="row" fxLayoutAlign="start start">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Production par bâtiment</mat-label>
                     <mat-select formControlName="production"
@@ -49,36 +49,34 @@
                                     [value]="production.id">Prod-{{production.building.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-            </div>
+            </div>-->
 
-            <div fxLayout="row" fxLayoutAlign="start center">
-                <mat-form-field appearance="outline" class="pr-4" fxFlex="50">
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="displayQteField">
+                <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Qte totale disponible</mat-label>
-                    <input type="text" formControlName="total" readonly
+                    <input type="text" formControlName="qteAvailable" readonly
                            mask="separator"
                            matInput>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="pr-4" fxFlex="50">
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Quantité Commandé</mat-label>
-                    <input type="text" formControlName="quantity"
-                           mask="separator"
-                           matInput>
+                    <input type="text" #d (input)="checkQte(d.value)"
+                           formControlName="quantity" mask="separator" matInput autocomplete="off">
                 </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start center">
                 <mat-form-field appearance="outline" class="pr-4" fxFlex="50">
                     <mat-label>P.U</mat-label>
-                    <input #q type="text" (input)="calculAmount(q.value)"
-                           formControlName="unitPrice"
-                           mask="separator"
-                           matInput>
+                    <input type="text" #p (input)="calculAmount(p.value)"
+                           formControlName="unitPrice" mask="separator" matInput autocomplete="off">
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="pr-4" fxFlex="50">
                     <mat-label>Montant</mat-label>
-                    <input type="text" formControlName="amount"
-                           mask="separator"
-                           matInput>
+                    <input type="text" formControlName="amount" mask="separator" matInput>
                 </mat-form-field>
             </div>
 

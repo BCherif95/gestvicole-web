@@ -155,7 +155,7 @@ export class SalesInvoiceFormDialogComponent implements OnInit, OnDestroy{
         this._invoicesService.create(this.invoice).subscribe(data => {
             if (data['status'] === 'OK') {
                 this._toastService.success(data['message']);
-                this._router.navigateByUrl('/views/sales/invoices');
+                this._router.navigateByUrl('/tr/sales/invoices');
             } else {
                 this._toastService.error(data['message']);
             }

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import {HttpClient, HttpEvent} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {ProjectUtils} from '../../../utils/project-utils';
-import {Building} from '../../../data/models/building.model';
-import {Customer} from '../../../data/models/customer.model';
 import {Order} from '../../../data/models/order.model';
+import {SearchBody} from '../../../utils/search-body';
 
 @Injectable({
     providedIn: 'root'
@@ -80,12 +79,20 @@ export class OrdersService implements Resolve<any>
         return this._httpClient.post(this.serviceURL + '/save', order, this.httpOptions);
     }
 
+    toOrder(order: Order) {
+        return this._httpClient.post(this.serviceURL + '/toOrder', order, this.httpOptions);
+    }
+
     update(order: Order) {
         return this._httpClient.put(this.serviceURL + '/update', order, this.httpOptions);
     }
 
     getById(id: number) {
         return this._httpClient.get(this.serviceURL + '/' + id, this.httpOptions);
+    }
+
+    getQuantityAvailable(searchBody: SearchBody){
+        return this._httpClient.post(this.serviceURL + '/qte-available',searchBody,this.httpOptions);
     }
 
 }

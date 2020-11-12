@@ -8,7 +8,7 @@ import {STOCK_OUT_STATE} from '../enums/enums';
 export class StockOut implements Deserializable {
 
     id?: number;
-    quantityOut?: number;
+    quantityOut?: number = 0;
     date?: Date;
     product: Product;
     state?: STOCK_OUT_STATE;

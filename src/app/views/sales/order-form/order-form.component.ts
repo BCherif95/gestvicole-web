@@ -1,15 +1,14 @@
-import {Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {Customer} from '../../../data/models/customer.model';
 import {Order} from '../../../data/models/order.model';
 import {Production} from '../../../data/models/production.model';
-import {ProductionsService} from '../../view-production/productions/productions.service';
 import {CustomersService} from '../customers/customers.service';
 import {ToastrService} from 'ngx-toastr';
-import {Subject} from 'rxjs';
 import {OrdersService} from '../orders/orders.service';
 import {SalesCustomerFormDialogComponent} from '../customer-form/customer-form.component';
+import {SearchBody} from '../../../utils/search-body';
 
 @Component({
     selector     : 'sales-order-form-dialog',
@@ -18,7 +17,7 @@ import {SalesCustomerFormDialogComponent} from '../customer-form/customer-form.c
     encapsulation: ViewEncapsulation.None
 })
 
-export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
+export class SalesOrderFormDialogComponent {
     action: string;
     order: Order;
     customers: Customer[];
@@ -28,8 +27,10 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
     orderForm: FormGroup;
     dialogTitle: string;
     dialogRef: any;
+    qteAvailable;
+    displayQteField= false;
+    searchBody = new SearchBody();
 
-    private _unsubscribeAll: Subject<any>;
 
     /**
      * Constructor
@@ -37,7 +38,6 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
      * @param {MatDialogRef<SalesOrderFormDialogComponent>} matDialogRef
      * @param _data
      * @param {FormBuilder} _formBuilder
-     * @param _productionsService
      * @param _ordersService
      * @param _customersService
      * @param _toastService
@@ -47,7 +47,6 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
         public matDialogRef: MatDialogRef<SalesOrderFormDialogComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private _formBuilder: FormBuilder,
-        private _productionsService: ProductionsService,
         private _ordersService: OrdersService,
         private _customersService: CustomersService,
         private _toastService: ToastrService,
@@ -62,7 +61,6 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
             this.dialogTitle = 'Modifier Commande';
             this.order = _data.order;
             this.getCustomerById(this.order.customer.id);
-            this.getProdById(this.order.production.id);
             this.updateOrderForm();
         }
         else
@@ -71,21 +69,9 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
             this.order = new Order({});
             this.createOrderForm();
         }
-    }
-
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        this.getAllProd();
         this.getAllCustomer();
     }
 
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -100,14 +86,14 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
         this.orderForm = this._formBuilder.group({
             id: new FormControl(''),
             customer: new FormControl('', Validators.required),
-            production: new FormControl('', Validators.required),
-            orderDate: new FormControl(new Date(), Validators.required),
-            quantity: new FormControl('',Validators.required),
-            unitPrice: new FormControl('',Validators.required),
-            amount: new FormControl('',Validators.required),
+            orderDate: new FormControl('', Validators.required),
+            quantity: new FormControl(0,Validators.required),
+            unitPrice: new FormControl(0,Validators.required),
+            amount: new FormControl(0,Validators.required),
             // reference: new FormControl(''),
-            total: new FormControl(this.order.production ? this.order.production.commercialProductions : 0),
+            qteAvailable: new FormControl(this.qteAvailable),
         });
+        this.updateQuantities();
     }
 
     /**
@@ -119,29 +105,25 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
         this.orderForm = this._formBuilder.group({
             id: new FormControl(this.order.id),
             customer: new FormControl(this.order.customer.id, Validators.required),
-            production: new FormControl(this.order.production.id, Validators.required),
-            orderDate: new FormControl(new Date(this.order.orderDate), Validators.required),
+            // production: new FormControl(this.order.production.id, Validators.required),
+            orderDate: new FormControl('', Validators.required),
             quantity: new FormControl(this.order.quantity,Validators.required),
             unitPrice: new FormControl(this.order.unitPrice,Validators.required),
             amount: new FormControl(this.order.amount,Validators.required),
             // reference: new FormControl(this.order.reference),
             number: new FormControl(this.order.number),
             state: new FormControl(this.order.state),
-            total: new FormControl(this.order.production ? this.order.production.commercialProductions : 0),
+            qteAvailable: new FormControl(this.qteAvailable),
         });
+        this.updateQuantities();
     }
 
-    getAllProd(){
-        this._productionsService.getAll().subscribe(value => {
-            this.productions = value['response'];
-        }, error => console.log(error))
-    }
 
-    getProdById(id: number) {
-        this._productionsService.getById(id).subscribe(value => {
-            this.production = value['response'];
-            this.orderForm.get('total').setValue(this.production.commercialProductions);
-        },error => console.log(error))
+    getQteAvailable(searchBody: SearchBody){
+        this._ordersService.getQuantityAvailable(searchBody).subscribe(value => {
+            this.qteAvailable = value;
+            console.log(this.qteAvailable);
+        },error => console.log(error));
     }
 
     getAllCustomer(){
@@ -160,24 +142,50 @@ export class SalesOrderFormDialogComponent implements OnInit, OnDestroy{
         this.getCustomerById(value);
     }
 
-    findProdSelected(value) {
-        this.getProdById(value);
+    addEvent(event) {
+        this.searchBody.date = new Date(event.value);
+        this.getQteAvailable(this.searchBody);
     }
 
     calculAmount(value) {
         let pu = Number.parseInt(value.replace(/ /g, ''));
         let quantity = this.orderForm.get('quantity').value;
-        let qte = Number.parseInt(quantity.replace(/ /g, ''));
-        this.orderForm.get('amount').setValue(pu*qte);
+        this.orderForm.get('amount').setValue(pu*quantity);
+    }
+
+    checkQte(value) {
+        this.displayQteField = true;
+        if (value) {
+            let qte = Number.parseInt(value.replace(/ /g, ''));
+            if (qte < this.qteAvailable) {
+                this.orderForm.get('quantity').setValue(qte);
+            } else {
+                this.orderForm.get('quantity').setValue(this.qteAvailable);
+                this._toastService.warning('La commande ne peut pas depasser le reste');
+            }
+        } else {
+            this.orderForm.get('quantity').setValue(0);
+        }
+        this.updateQuantities();
+    }
+
+    updateQuantities() {
+        let qte = this.orderForm.get('quantity').value;
+        let qteAvailable = this.qteAvailable - qte;
+        this.orderForm.get('qteAvailable').setValue(qteAvailable);
     }
 
     saveOrUpdate(){
+        if (this.orderForm.get('quantity').value <= 0) {
+            this._toastService.error('Le quantité à commander est toujours superieur à 0');
+            return;
+        }
         this.order = new Order();
         this.order = this.orderForm.getRawValue();
         this.order.customer = this.customer;
         this.order.production = this.production;
         if (!this.order.id) {
-            this._ordersService.create(this.order).subscribe(data => {
+            this._ordersService.toOrder(this.order).subscribe(data => {
                 if (data['status'] === 'OK') {
                     this._toastService.success(data['message']);
                     this._ordersService.getOrders();

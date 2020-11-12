@@ -6,7 +6,7 @@ import {Product} from './product.model';
 export class StockEntry implements Deserializable {
 
     id?: number;
-    quantityEntry?: number;
+    quantityEntry?: number = 0;
     observation?: string;
     date?: Date;
     product: Product;

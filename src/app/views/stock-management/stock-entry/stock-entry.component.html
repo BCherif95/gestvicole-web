@@ -1,5 +1,7 @@
 <div class="dialog-content-wrapper">
-    <mat-toolbar matDialogTitle class="mat-accent m-0">
+    <mat-toolbar matDialogTitle
+                 style="background: #422874 !important; color: white !important;"
+                 class="mat-accent m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title">{{dialogTitle}}</span>
             <button mat-icon-button (click)="matDialogRef.close()" matTooltip="Fermer le dialogue">
@@ -35,12 +37,29 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start center">
-                <mat-form-field appearance="outline" fxFlex>
+                <!--<mat-form-field appearance="outline" fxFlex>
                     <mat-label>Quantité</mat-label>
                     <input type="text"
                            formControlName="quantityEntry"
                            mask="separator"
                            matInput>
+                </mat-form-field>-->
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Quantité</mat-label>
+                    <input matInput #q (input)="convertKgToTon(q.value)"
+                           placeholder="Quantité" type="text"
+                           name="quantityEntry"
+                           mask="separator"
+                           formControlName="quantityEntry">
+                    <span matSuffix>kg</span>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Quantité en tonne</mat-label>
+                    <input name="qteInTonne" readonly
+                           formControlName="qteInTonne" matInput>
+                    <span matSuffix>tonnes</span>
                 </mat-form-field>
             </div>
 

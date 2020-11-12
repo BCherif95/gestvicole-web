@@ -20,7 +20,10 @@
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
                     Stocks
-                </span>
+                </span>&nbsp;&nbsp;
+                <button class="add-product-button fuse-white mt-24 mt-md-0"
+                        mat-raised-button (click)="exporter.exportTable('xlsx',{fileName:'Données de productions'})">Exporter en excel
+                </button>
             </div>
             <!-- / APP TITLE -->
 
@@ -39,9 +42,10 @@
         <!-- CONTENT CARD -->
         <div class="content-card">
 
-            <mat-table class="stocks-table"
-                       #table [dataSource]="dataSource"
+            <mat-table matTableExporter class="stocks-table"
+                       [dataSource]="dataSource"
                        matSort
+                       #exporter="matTableExporter"
                        [@animateStagger]="{value:'50'}"
                        fusePerfectScrollbar>
 
@@ -64,21 +68,21 @@
                 <ng-container matColumnDef="quantityEntry">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Entrée</mat-header-cell>
                     <mat-cell *matCellDef="let stock">
-                        <p class="text-truncate">{{stock?.quantityEntry| number:'':'fr-FR'}}</p>
+                        <p class="text-truncate">{{stock?.quantityEntry| number:'':'fr-FR'}}</p> kg
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="quantityOut">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Sortie</mat-header-cell>
                     <mat-cell *matCellDef="let stock">
-                        <p class="text-truncate">{{stock?.quantityOut| number:'':'fr-FR'}}</p>
+                        <p class="text-truncate">{{stock?.quantityOut| number:'':'fr-FR'}}</p> kg
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="solde">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Solde</mat-header-cell>
                     <mat-cell *matCellDef="let stock">
-                        <p class="text-truncate">{{stock?.solde| number:'':'fr-FR'}}</p>
+                        <p class="text-truncate">{{stock?.solde| number:'':'fr-FR'}}</p> kg
                     </mat-cell>
                 </ng-container>
 

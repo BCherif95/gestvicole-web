@@ -26,6 +26,7 @@ export class StockOutComponent
     user: User;
     stockOutForm: FormGroup;
     dialogTitle: string;
+    qteInTonne: number = 0;
 
     /**
      * Constructor
@@ -84,7 +85,8 @@ export class StockOutComponent
             date: new FormControl(this.stockOut.date, Validators.required),
             product: new FormControl(this.stockOut.product, Validators.required),
             quantityOut: new FormControl(this.stockOut.quantityOut, Validators.required),
-            user: new FormControl(this.stockOut.user,Validators.required)
+            user: new FormControl(this.stockOut.user,Validators.required),
+            qteInTonne: new FormControl(this.qteInTonne)
         });
     }
 
@@ -99,7 +101,8 @@ export class StockOutComponent
             date: new FormControl(this.stockOut.date, Validators.required),
             product: new FormControl(this.stockOut.product.id, Validators.required),
             quantityOut: new FormControl(this.stockOut.quantityOut, Validators.required),
-            user: new FormControl(this.stockOut.user.id,Validators.required)
+            user: new FormControl(this.stockOut.user.id,Validators.required),
+            qteInTonne: new FormControl(this.qteInTonne)
         });
     }
 
@@ -133,6 +136,12 @@ export class StockOutComponent
 
     findUserSelected(value) {
         this.getUser(value);
+    }
+
+    convertKgToTon(value: any) {
+        let qte = Number.parseInt(value.replace(/ /g, ''));
+        this.qteInTonne = 0.001*qte;
+        this.stockOutForm.get('qteInTonne').setValue(this.qteInTonne);
     }
 
     saveOrUpdate(){

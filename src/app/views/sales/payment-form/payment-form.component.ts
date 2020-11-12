@@ -161,7 +161,7 @@ export class SalesPaymentFormDialogComponent implements OnInit, OnDestroy{
                     let invoicePayment = ret['response'];
                     this._toastService.success(ret['message']);
                     // this._router.navigateByUrl('/views/sales/payments');
-                    this._router.navigateByUrl('/views/sales/print/payment/'+invoicePayment.id);
+                    this._router.navigateByUrl('/tr/sales/print/payment/'+invoicePayment.id);
                     if (this._paymentsService.payments) {
                         this._paymentsService.payments.push(ret['response']);
                         this._paymentsService.onPaymentsChanged.next(this._paymentsService.payments);

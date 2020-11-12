@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
-import { FuseUtils } from '@fuse/utils';
 import {Production} from '../../../data/models/production.model';
 import {ProductionService} from './production.service';
 import {ViewProductionBuildingsService} from '../buildings/buildings.service';

@@ -9,6 +9,7 @@ export class Production implements Deserializable{
     mortality?: number = 0;
     generalEffective?: number = 0;
     commercialProductions?: number = 0;
+    soldProduction?: number = 0;
     alveolusBroken?: number = 0;
     prodDoubleYellow?: number = 0;
     prodSmallAlveolus?: number = 0;
@@ -26,6 +27,7 @@ export class Production implements Deserializable{
         this.prodSmallAlveolus = production.prodSmallAlveolus || 0;
         this.date = production.date;
         this.commercialProductions = production.commercialProductions || 0;
+        this.soldProduction = production.soldProduction || 0;
         this.building = production.building || {};
     }
 

@@ -44,6 +44,7 @@ export class ViewProductionBuildingComponent implements OnInit, OnDestroy
      * @param _toastService
      * @param _layerTypeService
      * @param _router
+     * @param roleHelpers
      */
     constructor(
         private _viewProductionBuildingService: ViewProductionBuildingService,
@@ -183,7 +184,7 @@ export class ViewProductionBuildingComponent implements OnInit, OnDestroy
             this._viewProductionBuildingService.createBuilding(this.buildingSaveEntity).subscribe(data => {
                 if (data['status'] === 'OK') {
                     this._toastService.success(data['message']);
-                    this._router.navigateByUrl('/views/view-production/buildings');
+                    this._router.navigateByUrl('/tr/production/buildings');
                 } else {
                     this._toastService.error(data['message']);
                 }
@@ -192,7 +193,7 @@ export class ViewProductionBuildingComponent implements OnInit, OnDestroy
             this._viewProductionBuildingService.updateBuilding(this.buildingSaveEntity).subscribe(data => {
                 if (data['status'] === 'OK') {
                     this._toastService.success(data['message']);
-                    this._router.navigateByUrl('/views/view-production/buildings');
+                    this._router.navigateByUrl('/tr/production/buildings');
                 } else {
                     this._toastService.error(data['message']);
                 }

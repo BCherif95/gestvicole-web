@@ -20,7 +20,10 @@
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
                     Clients
-                </span>
+                </span>&nbsp;&nbsp;
+                <button class="add-product-button fuse-white mt-24 mt-md-0"
+                        mat-raised-button (click)="exporter.exportTable('xlsx',{fileName:'Données de productions'})">Exporter en excel
+                </button>
             </div>
             <!-- / APP TITLE -->
 
@@ -48,10 +51,11 @@
         <!-- CONTENT CARD -->
         <div class="content-card">
 
-            <mat-table class="customers-table"
-                       #table [dataSource]="dataSource"
+            <mat-table matTableExporter class="customers-table"
+                       [dataSource]="dataSource"
                        matSort
                        [@animateStagger]="{value:'50'}"
+                       #exporter="matTableExporter"
                        fusePerfectScrollbar>
 
                 <!-- Name Column -->

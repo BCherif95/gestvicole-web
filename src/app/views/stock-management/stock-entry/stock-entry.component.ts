@@ -6,7 +6,6 @@ import {Product} from '../../../data/models/product.model';
 import {ProductsService} from '../products/products.service';
 import {StockEntry} from '../../../data/models/stock.entry.model';
 import {StockEntriesService} from '../stock-entries/stock-entries.service';
-import {RoleHelpers} from '../../../authz/role.helpers';
 
 @Component({
     selector     : 'stock-management-stock-entry-dialog',
@@ -23,6 +22,7 @@ export class StockEntryComponent
     products: Product[];
     stockEntryForm: FormGroup;
     dialogTitle: string;
+    qteInTonne: number = 0;
 
     /**
      * Constructor
@@ -77,7 +77,8 @@ export class StockEntryComponent
             date: new FormControl(this.stockEntry.date, Validators.required),
             product: new FormControl(this.stockEntry.product, Validators.required),
             quantityEntry: new FormControl(this.stockEntry.quantityEntry, Validators.required),
-            observation: new FormControl(this.stockEntry.observation)
+            observation: new FormControl(this.stockEntry.observation),
+            qteInTonne: new FormControl(this.qteInTonne)
         });
     }
 
@@ -92,7 +93,8 @@ export class StockEntryComponent
             date: new FormControl(this.stockEntry.date, Validators.required),
             product: new FormControl(this.stockEntry.product.id, Validators.required),
             quantityEntry: new FormControl(this.stockEntry.quantityEntry, Validators.required),
-            observation: new FormControl(this.stockEntry.observation)
+            observation: new FormControl(this.stockEntry.observation),
+            qteInTonne: new FormControl(this.qteInTonne)
         });
     }
 
@@ -127,5 +129,11 @@ export class StockEntryComponent
 
     findProductSelected(value) {
         this.getProduct(value);
+    }
+
+    convertKgToTon(value: any) {
+        let qte = Number.parseInt(value.replace(/ /g, ''));
+        this.qteInTonne = 0.001*qte;
+        this.stockEntryForm.get('qteInTonne').setValue(this.qteInTonne);
     }
 }
