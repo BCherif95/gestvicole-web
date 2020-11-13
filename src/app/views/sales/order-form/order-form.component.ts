@@ -70,6 +70,7 @@ export class SalesOrderFormDialogComponent {
             this.createOrderForm();
         }
         this.getAllCustomer();
+        this.getQteAvailable();
     }
 
 
@@ -87,9 +88,9 @@ export class SalesOrderFormDialogComponent {
             id: new FormControl(''),
             customer: new FormControl('', Validators.required),
             orderDate: new FormControl('', Validators.required),
-            quantity: new FormControl(0,Validators.required),
-            unitPrice: new FormControl(0,Validators.required),
-            amount: new FormControl(0,Validators.required),
+            quantity: new FormControl('',Validators.required),
+            unitPrice: new FormControl('',Validators.required),
+            amount: new FormControl('',Validators.required),
             // reference: new FormControl(''),
             qteAvailable: new FormControl(this.qteAvailable),
         });
@@ -119,8 +120,8 @@ export class SalesOrderFormDialogComponent {
     }
 
 
-    getQteAvailable(searchBody: SearchBody){
-        this._ordersService.getQuantityAvailable(searchBody).subscribe(value => {
+    getQteAvailable(){
+        this._ordersService.getQuantityAvailable().subscribe(value => {
             this.qteAvailable = value;
             console.log(this.qteAvailable);
         },error => console.log(error));
@@ -142,10 +143,6 @@ export class SalesOrderFormDialogComponent {
         this.getCustomerById(value);
     }
 
-    addEvent(event) {
-        this.searchBody.date = new Date(event.value);
-        this.getQteAvailable(this.searchBody);
-    }
 
     calculAmount(value) {
         let pu = Number.parseInt(value.replace(/ /g, ''));
