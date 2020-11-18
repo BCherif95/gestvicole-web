@@ -1,18 +1,16 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 import {Building} from './building.model';
 
-@Injectable()
 export class Production implements Deserializable{
     id?: number;
-    overallProduction?: number = 0;
-    mortality?: number = 0;
-    generalEffective?: number = 0;
-    commercialProductions?: number = 0;
-    soldProduction?: number = 0;
-    alveolusBroken?: number = 0;
-    prodDoubleYellow?: number = 0;
-    prodSmallAlveolus?: number = 0;
+    overallProduction = 0;
+    mortality = 0;
+    generalEffective = 0;
+    commercialProductions = 0;
+    soldProduction = 0;
+    alveolusBroken = 0;
+    prodDoubleYellow = 0;
+    prodSmallAlveolus = 0;
     date?: Date = new Date();
     building?: Building;
 

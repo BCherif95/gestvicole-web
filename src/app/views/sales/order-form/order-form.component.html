@@ -33,7 +33,7 @@
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Date de la commande</mat-label>
                     <input matInput [matDatepicker]="orderDateDatePicker" name="orderDate"
-                           formControlName="orderDate" (dateInput)="addEvent($event)" required>
+                           formControlName="orderDate" required>
                     <mat-datepicker-toggle matSuffix [for]="orderDateDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #orderDateDatePicker></mat-datepicker>
                 </mat-form-field>

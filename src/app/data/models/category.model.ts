@@ -1,7 +1,5 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 
-@Injectable()
 export class Category implements Deserializable {
 
     id?: number;

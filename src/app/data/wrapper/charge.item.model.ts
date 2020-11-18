@@ -1,8 +1,5 @@
 import {Deserializable} from './deserializable.wrapper';
 import {Injectable} from '@angular/core';
-
-
-@Injectable()
 export class ChargeItem implements Deserializable{
 
     buildingName?: string;

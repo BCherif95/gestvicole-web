@@ -1,13 +1,11 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 import {Building} from './building.model';
 
-@Injectable()
 export class LayerType implements Deserializable{
     id?: number;
     name?: string;
     description?: string;
-    quantity?: number = 0;
+    quantity = 0;
     building?: Building;
 
     constructor(layerType?) {

@@ -4,7 +4,6 @@
     <list default="true" id="cc1956ce-bfd2-497b-ae36-8f404b1a7f24" name="Default" comment="apply some changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/order-form/order-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/views/sales/orders/orders.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/views/sales/orders/orders.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +222,9 @@
       <workItem from="1605137719200" duration="6737000" />
       <workItem from="1605207918627" duration="598000" />
       <workItem from="1605210099429" duration="2763000" />
-      <workItem from="1605304295105" duration="668000" />
+      <workItem from="1605304295105" duration="1092000" />
+      <workItem from="1605651323259" duration="1544000" />
+      <workItem from="1605727381532" duration="781000" />
     </task>
     <task id="LOCAL-00001" summary="apply some changes">
       <created>1587511718795</created>

@@ -4,7 +4,6 @@ import {Customer} from './customer.model';
 import {Production} from './production.model';
 import {ORDER_STATE} from '../enums/enums';
 
-@Injectable()
 export class Order implements Deserializable {
 
     id?: number;

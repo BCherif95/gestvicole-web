@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {Building} from '../models/building.model';
 import {LayerType} from '../models/layer.type.model';
 
-@Injectable()
 export class BuildingSaveEntity implements Deserializable{
 
     building?: Building;

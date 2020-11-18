@@ -1,12 +1,10 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 import {Product} from './product.model';
 
-@Injectable()
 export class StockEntry implements Deserializable {
 
     id?: number;
-    quantityEntry?: number = 0;
+    quantityEntry = 0;
     observation?: string;
     date?: Date;
     product: Product;

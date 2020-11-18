@@ -1,14 +1,12 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 import {Product} from './product.model';
 import {User} from './user.model';
 import {STOCK_OUT_STATE} from '../enums/enums';
 
-@Injectable()
 export class StockOut implements Deserializable {
 
     id?: number;
-    quantityOut?: number = 0;
+    quantityOut = 0;
     date?: Date;
     product: Product;
     state?: STOCK_OUT_STATE;

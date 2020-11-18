@@ -1,10 +1,8 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 import {METHOD_OF_PAYMENT, PAYMENT_STATE} from '../enums/enums';
 import {Invoice} from './invoice.model';
 import {User} from './user.model';
 
-@Injectable()
 export class Payment implements Deserializable {
 
     id?: number;

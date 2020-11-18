@@ -4,7 +4,6 @@ import {Customer} from './customer.model';
 import {INVOICE_STATE, METHOD_OF_PAYMENT} from '../enums/enums';
 import {Order} from './order.model';
 
-@Injectable()
 export class Invoice implements Deserializable {
 
     id?: number;

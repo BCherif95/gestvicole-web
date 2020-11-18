@@ -91,7 +91,6 @@ export class SalesOrderFormDialogComponent {
             quantity: new FormControl('',Validators.required),
             unitPrice: new FormControl('',Validators.required),
             amount: new FormControl('',Validators.required),
-            // reference: new FormControl(''),
             qteAvailable: new FormControl(this.qteAvailable),
         });
         this.updateQuantities();
@@ -106,12 +105,10 @@ export class SalesOrderFormDialogComponent {
         this.orderForm = this._formBuilder.group({
             id: new FormControl(this.order.id),
             customer: new FormControl(this.order.customer.id, Validators.required),
-            // production: new FormControl(this.order.production.id, Validators.required),
-            orderDate: new FormControl('', Validators.required),
+            orderDate: new FormControl(new Date(this.order.orderDate), Validators.required),
             quantity: new FormControl(this.order.quantity,Validators.required),
             unitPrice: new FormControl(this.order.unitPrice,Validators.required),
             amount: new FormControl(this.order.amount,Validators.required),
-            // reference: new FormControl(this.order.reference),
             number: new FormControl(this.order.number),
             state: new FormControl(this.order.state),
             qteAvailable: new FormControl(this.qteAvailable),
@@ -123,7 +120,6 @@ export class SalesOrderFormDialogComponent {
     getQteAvailable(){
         this._ordersService.getQuantityAvailable().subscribe(value => {
             this.qteAvailable = value;
-            console.log(this.qteAvailable);
         },error => console.log(error));
     }
 
@@ -160,6 +156,8 @@ export class SalesOrderFormDialogComponent {
                 this.orderForm.get('quantity').setValue(this.qteAvailable);
                 this._toastService.warning('La commande ne peut pas depasser le reste');
             }
+            let unitPrice = this.orderForm.get('unitPrice').value;
+            this.orderForm.get('amount').setValue(qte*unitPrice);
         } else {
             this.orderForm.get('quantity').setValue(0);
         }
@@ -192,6 +190,7 @@ export class SalesOrderFormDialogComponent {
                 this.matDialogRef.close();
             });
         } else {
+            console.log('order : ' + this.order);
             this._ordersService.update(this.order).subscribe(data => {
                 if (data['status'] === 'OK') {
                     this._toastService.success(data['message']);

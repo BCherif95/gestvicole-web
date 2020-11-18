@@ -1,9 +1,6 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
 import {Role} from './role.model';
 
-
-@Injectable()
 export class User implements Deserializable {
 
     id?: number;

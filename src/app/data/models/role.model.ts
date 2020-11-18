@@ -1,8 +1,6 @@
 import {Deserializable} from './deserializable.model';
-import {Injectable} from '@angular/core';
-import {Privilege} from "./privilege.model";
+import {Privilege} from './privilege.model';
 
-@Injectable()
 export class Role implements Deserializable {
 
     name?: string;

@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Deserializable} from './deserializable.model';
 
-@Injectable()
 export class Building implements Deserializable{
 
     id?: number;
     name?: string;
     description?: string;
-    active: boolean = true;
-    totalLayer?: number = 0;
+    active = true;
+    totalLayer = 0;
 
     constructor(building?) {
         building = building || {};
